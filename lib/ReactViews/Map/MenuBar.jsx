@@ -64,6 +64,8 @@ const MenuBar = createReactClass({
       "mapGuidesLocationPrompted"
     );
     const storyEnabled = this.props.terria.configParameters.storyEnabled;
+    const shareEnabled = this.props.terria.configParameters.shareEnabled;
+    const helpEnabled = this.props.terria.configParameters.helpEnabled;
     const enableTools = this.props.terria.getUserProperty("tools") === "1";
 
     const promptHtml =
@@ -124,36 +126,40 @@ const MenuBar = createReactClass({
               viewState={this.props.viewState}
             />
           </li>
-          <li className={Styles.menuItem}>
-            <SharePanel
-              terria={this.props.terria}
-              viewState={this.props.viewState}
-            />
-          </li>
-          <li className={Styles.menuItem}>
-            <HelpMenuPanelBasic
-              terria={this.props.terria}
-              viewState={this.props.viewState}
-            />
-            {this.props.terria.configParameters.showFeaturePrompts &&
-              satelliteGuidancePrompted &&
-              !mapGuidesLocationPrompted &&
-              !this.props.viewState.showSatelliteGuidance && (
-                <Prompt
-                  content={
-                    <div>
-                      <Trans i18nKey="satelliteGuidance.menuTitle">
-                        You can access map guides at any time by looking in the{" "}
-                        <strong>help menu</strong>.
-                      </Trans>
-                    </div>
-                  }
-                  displayDelay={1000}
-                  dismissText={t("satelliteGuidance.dismissText")}
-                  dismissAction={this.dismissSatelliteGuidanceAction}
-                />
-              )}
-          </li>
+          <If condition={shareEnabled}>
+            <li className={Styles.menuItem}>
+              <SharePanel
+                terria={this.props.terria}
+                viewState={this.props.viewState}
+              />
+            </li>
+          </If>
+          <If condition={helpEnabled}>
+            <li className={Styles.menuItem}>
+              <HelpMenuPanelBasic
+                terria={this.props.terria}
+                viewState={this.props.viewState}
+              />
+              {this.props.terria.configParameters.showFeaturePrompts &&
+                satelliteGuidancePrompted &&
+                !mapGuidesLocationPrompted &&
+                !this.props.viewState.showSatelliteGuidance && (
+                  <Prompt
+                    content={
+                      <div>
+                        <Trans i18nKey="satelliteGuidance.menuTitle">
+                          You can access map guides at any time by looking in the{" "}
+                          <strong>help menu</strong>.
+                        </Trans>
+                      </div>
+                    }
+                    displayDelay={1000}
+                    dismissText={t("satelliteGuidance.dismissText")}
+                    dismissAction={this.dismissSatelliteGuidanceAction}
+                  />
+                )}
+            </li>
+          </If>
           {enableTools && (
             <li className={Styles.menuItem}>
               <ToolsPanel

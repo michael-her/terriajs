@@ -91,6 +91,11 @@ function configureWebpack(terriaJSBasePath, config, devMode, hot, MiniCssExtract
                 'babel-plugin-jsx-control-statements',
                 '@babel/plugin-transform-modules-commonjs',
                 '@babel/plugin-syntax-dynamic-import',
+                // michael
+                'babel-plugin-transform-class-properties',
+                '@babel/plugin-proposal-optional-chaining',
+                '@babel/plugin-proposal-export-default-from',
+                '@babel/plugin-proposal-export-namespace-from',
             ]
         }
     });

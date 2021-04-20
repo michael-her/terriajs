@@ -103,7 +103,7 @@ export default createReactClass({
           <Icon glyph={Icon.GLYPHS.search} />
         </label>
         <input
-          id="search"
+          // id="search"
           type="text"
           name="search"
           value={this.props.searchText}

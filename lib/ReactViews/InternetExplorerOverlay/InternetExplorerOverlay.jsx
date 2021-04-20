@@ -36,7 +36,7 @@ const InternetExplorerOverlay = createReactClass({
 
     return (
       <IEMessagePure
-        showIEMessage={viewState.showIEMessage}
+        showIEMessage={viewState.showIEMessage || false}
         setShowIEMessage={bool => {
           viewState.showIEMessage = bool;
         }}

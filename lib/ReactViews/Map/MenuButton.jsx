@@ -15,6 +15,7 @@ function MenuButton(props) {
         className={Styles.btnAboutLink}
         href={props.href}
         target={props.href !== "#" ? "_blank" : undefined}
+        rel={'noreferrer'}
         title={props.caption}
       >
         {props.href !== "#" && <Icon glyph={Icon.GLYPHS.externalLink} />}

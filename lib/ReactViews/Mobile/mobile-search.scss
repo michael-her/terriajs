@@ -24,7 +24,9 @@
 }
 
 .location {
-  height: calc(100vh - #{$workbench-header + $logo-height});
+  // michael
+  height: calc(100vh - #{$workbench-header});
+  // height: calc(100vh - #{$workbench-header + $logo-height});
 
   @media (max-width: $sm) {
     height: calc(100vh - #{$mobile-header-height + $modal-header-height});
