@@ -7,7 +7,7 @@
   // michael
   display: flex;
   flex-direction: column;
-  width: calc(100% - 15px);
+  // width: calc(100% - 15px);
   height: calc(100vh - #{$workbench-header});
   //height: calc(100vh - #{$workbench-header + $logo-height});
   overflow-x: hidden;

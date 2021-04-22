@@ -1,13 +1,41 @@
-import React from "react";
-import createReactClass from "create-react-class";
+import React, {Component} from "react";
 import PropTypes from "prop-types";
-import Sortable from "react-anything-sortable";
+import {SortableContainer, SortableElement} from 'react-sortable-hoc';
 
 import WorkbenchItemFactory from "./WorkbenchItem.jsx";
 import ObserveModelMixin from "./../ObserveModelMixin";
 
 import Styles from "./workbench-list.scss";
-import "!!style-loader!css-loader?sourceMap!./sortable.css";
+// import "!!style-loader!css-loader?sourceMap!./sortable.css";
+import classNames from "classnames";
+import styled from 'styled-components';
+
+// make sure the element is always visible while is being dragged
+// item being dragged is appended in body, here to reset its global style
+const SortableStyledItem = styled.div`
+  z-index: ${props => props.theme.dropdownWrapperZ + 1};
+
+  &.sorting {
+    pointer-events: none;
+  }
+
+  &.sorting-layers .layer-panel__header {
+    background-color: ${props => props.theme.panelBackgroundHover};
+    font-family: ${props => props.theme.fontFamily};
+    font-weight: ${props => props.theme.fontWeight};
+    font-size: ${props => props.theme.fontSize};
+    line-height: ${props => props.theme.lineHeight};
+    *,
+    *:before,
+    *:after {
+      box-sizing: border-box;
+    }
+    .layer__drag-handle {
+      opacity: 1;
+      color: ${props => props.theme.textColorHl};
+    }
+  }
+`;
 
 WorkbenchListFactory.deps = [
   WorkbenchItemFactory
@@ -16,49 +44,85 @@ WorkbenchListFactory.deps = [
 export default function WorkbenchListFactory(
   WorkbenchItem
 ) {
-  const WorkbenchList = createReactClass({
-    displayName: "WorkbenchList",
-    mixins: [ObserveModelMixin],
-  
-    propTypes: {
+  const SortableItem = SortableElement(({children, isSorting}) => (
+    <SortableStyledItem className={classNames('sortable-layer-items', {sorting: isSorting})}>
+      {children}
+    </SortableStyledItem>
+  ))
+
+  const WrappedSortableContainer = SortableContainer(({children}) => (
+    <div>{children}</div>
+  ))
+
+  class WorkbenchList extends Component {
+    static displayName = "WorkbenchList"
+
+    static mixins = [ObserveModelMixin]
+
+    static propTypes = {
       terria: PropTypes.object.isRequired,
       viewState: PropTypes.object.isRequired
-    },
-  
-    onSort(sortedArray, currentDraggingSortData, currentDraggingIndex) {
-      let draggedItemIndex = this.props.terria.nowViewing.items.indexOf(
-        currentDraggingSortData
-      );
-      const addAtIndex = currentDraggingIndex;
-  
-      while (draggedItemIndex < addAtIndex) {
-        this.props.terria.nowViewing.lower(currentDraggingSortData);
-        ++draggedItemIndex;
-      }
-  
-      while (draggedItemIndex > addAtIndex) {
-        this.props.terria.nowViewing.raise(currentDraggingSortData);
-        --draggedItemIndex;
-      }
-    },
-  
-    render() {
-      return (
-        <ul className={Styles.workbenchContent}>
-          <Sortable onSort={this.onSort} direction="vertical" dynamic={true}>
-            <For each="item" of={this.props.terria.nowViewing.items}>
-              <WorkbenchItem
-                item={item}
-                sortData={item}
-                key={item.uniqueId}
-                viewState={this.props.viewState}
-              />
-            </For>
-          </Sortable>
-        </ul>
-      );
     }
-  });
+
+    state = {
+      isSorting: false
+    }
+
+    _handleSort = ({oldIndex, newIndex}) => {
+      const item = this.props.terria.nowViewing.items[oldIndex]
+
+      while (oldIndex < newIndex) {
+        this.props.terria.nowViewing.lower(item);
+        ++oldIndex;
+      }
+  
+      while (oldIndex > newIndex) {
+        this.props.terria.nowViewing.raise(item);
+        --oldIndex;
+      }
+      this.setState({isSorting: false})
+    }
+
+    _onSortStart = () => this.setState({isSorting: true})
+
+    _updateBeforeSortStart = ({index}) => {
+      const item = this.props.terria.nowViewing.items[index]
+      // if layer config is active, close it
+      if (item.isConfigurable) {
+        item.isConfigurable = false
+      }
+    }
+  
+    render() { return (
+      <ul className={Styles.workbenchContent}>
+        <WrappedSortableContainer
+          onSortEnd={this._handleSort}
+          onSortStart={this._onSortStart}
+          updateBeforeSortStart={this._updateBeforeSortStart}
+          lockAxis="y"
+          helperClass="sorting-layers"
+          useDragHandle
+        >
+          <For each="item" index="index" of={this.props.terria.nowViewing.items}>
+            {!item.isHidden && (
+              <SortableItem
+                key={`layer-${index}` /*item.uniqueId*/}
+                index={index}
+                isSorting={this.state.isSorting}
+              >
+                <WorkbenchItem
+                  item={item}
+                  sortData={item}
+                  key={item.uniqueId}
+                  viewState={this.props.viewState}
+                />
+              </SortableItem>
+            )}
+          </For>
+        </WrappedSortableContainer>
+      </ul>
+    )}
+  }
   
   return WorkbenchList;
 }
