@@ -10,6 +10,8 @@ import Styles from "./workbench-list.scss";
 import classNames from "classnames";
 import styled from 'styled-components';
 
+import {connect} from 'react-redux'
+
 // make sure the element is always visible while is being dragged
 // item being dragged is appended in body, here to reset its global style
 const SortableStyledItem = styled.div`
@@ -112,6 +114,7 @@ export default function WorkbenchListFactory(
               >
                 <WorkbenchItem
                   item={item}
+                  layer={this.props.layers[index]}
                   sortData={item}
                   key={item.uniqueId}
                   viewState={this.props.viewState}
@@ -123,6 +126,10 @@ export default function WorkbenchListFactory(
       </ul>
     )}
   }
+
+  const mapStateToProps = ({app: {keplerGl: {map: {visState: {layers}}}}}) => {
+    return {layers}
+  }
   
-  return WorkbenchList;
+  return connect(mapStateToProps, {})(WorkbenchList);
 }

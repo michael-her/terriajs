@@ -14,6 +14,8 @@ import addUserFiles from "../../../../Models/addUserFiles";
 import Styles from "./add-data.scss";
 import Loader from "../../../Loader";
 import { withTranslation, Trans } from "react-i18next";
+import {connect} from 'react-redux'
+import {addLayer} from '../../../../Actions'
 
 // Local and remote data have different dataType options
 const remoteDataType = getDataType().remoteDataType;
@@ -106,6 +108,7 @@ const AddData = createReactClass({
         isLoading: false
       });
       this.props.resetTab();
+      this.props.addLayer({item: addedItem})
     });
   },
 
@@ -230,4 +233,10 @@ function loadFile(viewModel) {
   );
 }
 
-module.exports = withTranslation()(AddData);
+const mapStateToProps = ({app: {keplerGl: {map: {visState: {layers}}}}}) => {
+  return {layers}
+}
+
+module.exports = connect(mapStateToProps, {
+  addLayer,
+})(withTranslation()(AddData))

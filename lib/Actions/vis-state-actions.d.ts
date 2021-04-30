@@ -63,28 +63,37 @@ export function layerTypeChange(
   newType: string
 ): Merge<LayerTypeChangeUpdaterAction, {type: ActionTypes.LAYER_TYPE_CHANGE}>;
 
-export type LayerVisualChannelConfigChangeUpdaterAction = {
+export type LayerChannelChangeUpdaterAction = {
   oldLayer: Layer;
   newConfig: Partial<LayerConfig>;
   channel: string;
 };
-export function layerVisualChannelConfigChange(
+export function layerChannelChange(
   oldLayer: Layer,
   newConfig: Partial<LayerConfig>,
   channel: string
 ): Merge<
-  LayerVisualChannelConfigChangeUpdaterAction,
+  LayerChannelChangeUpdaterAction,
   {type: ActionTypes.LAYER_VISUAL_CHANNEL_CHANGE}
 >;
 
-export type LayerVisConfigChangeUpdaterAction = {
+export type LayerVisualChangeUpdaterAction = {
   oldLayer: Layer;
   newVisConfig: Partial<LayerVisConfig>;
 };
-export function layerVisConfigChange(
+export function layerVisualChange(
   oldLayer: Layer,
   newVisConfig: Partial<LayerVisConfig>
-): Merge<LayerVisConfigChangeUpdaterAction, {type: ActionTypes.LAYER_VIS_CONFIG_CHANGE}>;
+): Merge<LayerVisualChangeUpdaterAction, {type: ActionTypes.LAYER_VISUAL_CHANGE}>;
+
+export type LayerInitialChangeUpdaterAction = {
+  oldLayer: Layer;
+  newVisConfig: Partial<LayerVisConfig>;
+};
+export function layerInitialChange(
+  oldLayer: Layer,
+  newVisConfig: Partial<LayerVisConfig>
+): Merge<LayerInitialChangeUpdaterAction, {type: ActionTypes.LAYER_INITIAL_CHANGE}>;
 
 export type LayerColorUIChangeUpdaterAction = {
   oldLayer: Layer;

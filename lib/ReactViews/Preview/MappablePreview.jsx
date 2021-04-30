@@ -11,6 +11,8 @@ import ObserveModelMixin from "../ObserveModelMixin";
 import Styles from "./mappable-preview.scss";
 import SharePanel from "../Map/Panels/SharePanel/SharePanel.jsx";
 import { withTranslation } from "react-i18next";
+import {connect} from 'react-redux'
+import {addLayer} from '../../Actions'
 
 /**
  * CatalogItem preview that is mappable (as opposed to say, an analytics item that can't be displayed on a map without
@@ -25,7 +27,9 @@ const MappablePreview = createReactClass({
     terria: PropTypes.object.isRequired,
     viewState: PropTypes.object.isRequired,
     widthFromMeasureElementHOC: PropTypes.number,
-    t: PropTypes.func.isRequired
+    t: PropTypes.func.isRequired,
+
+    addLayer: PropTypes.func.isRequired,
   },
 
   toggleOnMap(event) {
@@ -41,6 +45,9 @@ const MappablePreview = createReactClass({
     ) {
       this.props.viewState.explorerPanelIsVisible = false;
       this.props.viewState.mobileView = null;
+    }
+    if (this.props.previewed.isEnabled) {
+      this.props.addLayer({item: this.props.previewed})
     }
   },
 
@@ -103,4 +110,10 @@ const MappablePreview = createReactClass({
   }
 });
 
-export default withTranslation()(measureElement(MappablePreview));
+const mapStateToProps = ({app: {keplerGl: {map: {visState: {layers}}}}}) => {
+  return {layers}
+}
+
+export default connect(mapStateToProps, {
+  addLayer,
+})(withTranslation()(measureElement(MappablePreview)));

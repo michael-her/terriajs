@@ -26,6 +26,12 @@ export const DataCatalog = createReactClass({
     t: PropTypes.func.isRequired
   },
 
+  UNSAFE_componentWillMount() {
+    // Warning: Cannot update during an existing state transition (such as within `render`). Render methods should be a pure function of props and state. 
+    // compute before call render
+    this.props.terria.catalog.userAddedDataGroup
+  },
+
   render() {
     const searchState = this.props.viewState.searchState;
     const isSearching = searchState.catalogSearchText.length > 0;
@@ -47,17 +53,15 @@ export const DataCatalog = createReactClass({
             }
           />
         </If>
-        <For each="item" of={items}>
-          {item !== this.props.terria.catalog.userAddedDataGroup && (
-            <DataCatalogMember
-              viewState={this.props.viewState}
-              member={item}
-              manageIsOpenLocally={isSearching}
-              key={item.uniqueId}
-              removable={this.props.removable}
-              terria={this.props.terria}
-            />
-          )}
+        <For each="item" of={items.filter(item => item !== this.props.terria.catalog.userAddedDataGroup)}>
+          <DataCatalogMember
+            viewState={this.props.viewState}
+            member={item}
+            manageIsOpenLocally={isSearching}
+            key={item.uniqueId}
+            removable={this.props.removable}
+            terria={this.props.terria}
+          />
         </For>
       </ul>
     );

@@ -12,7 +12,8 @@ export type ActionType = {
   LAYER_CONFIG_CHANGE: string;
   LAYER_VISUAL_CHANNEL_CHANGE: string;
   LAYER_TYPE_CHANGE: string;
-  LAYER_VIS_CONFIG_CHANGE: string;
+  LAYER_VISUAL_CHANGE: string;
+  LAYER_INITIAL_CHANGE: string;
   LAYER_TEXT_LABEL_CHANGE: string;
   LAYER_HOVER: string;
   LAYER_CLICK: string;

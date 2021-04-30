@@ -9,6 +9,8 @@ import getAncestors from "../../Models/getAncestors";
 import ObserveModelMixin from "../ObserveModelMixin";
 import raiseErrorOnRejectedPromise from "../../Models/raiseErrorOnRejectedPromise";
 import { withTranslation } from "react-i18next";
+import {connect} from 'react-redux'
+import {addLayer} from '../../Actions'
 
 // Individual dataset
 export const DataCatalogItem = createReactClass({
@@ -20,7 +22,9 @@ export const DataCatalogItem = createReactClass({
     viewState: PropTypes.object.isRequired,
     removable: PropTypes.bool,
     terria: PropTypes.object,
-    t: PropTypes.func.isRequired
+    t: PropTypes.func.isRequired,
+
+    addLayer: PropTypes.func.isRequired,
   },
 
   onBtnClicked(event) {
@@ -58,6 +62,7 @@ export const DataCatalogItem = createReactClass({
       if (this.props.viewState.firstTimeAddingData) {
         this.props.viewState.featureInfoPanelIsVisible = true;
       }
+      this.props.addLayer({item: this.props.item})
     }
   },
 
@@ -125,4 +130,10 @@ export const DataCatalogItem = createReactClass({
   }
 });
 
-export default withTranslation()(DataCatalogItem);
+const mapStateToProps = ({app: {keplerGl: {map: {visState: {layers}}}}}) => {
+  return {layers}
+}
+
+export default connect(mapStateToProps, {
+  addLayer,
+})(withTranslation()(DataCatalogItem));

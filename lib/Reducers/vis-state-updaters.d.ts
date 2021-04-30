@@ -301,13 +301,17 @@ export function layerTypeChangeUpdater(
   state: VisState,
   action: VisStateActions.LayerTypeChangeUpdaterAction
 ): VisState;
-export function layerVisualChannelChangeUpdater(
+export function layerChannelChangeUpdater(
   state: VisState,
-  action: VisStateActions.LayerVisualChannelConfigChangeUpdaterAction
+  action: VisStateActions.LayerChannelConfigChangeUpdaterAction
 ): VisState;
-export function layerVisConfigChangeUpdater(
+export function layerVisualChangeUpdater(
   state: VisState,
-  action: VisStateActions.LayerVisConfigChangeUpdaterAction
+  action: VisStateActions.LayerVisualChangeUpdaterAction
+): VisState;
+export function layerInitialChangeUpdater(
+  state: VisState,
+  action: VisStateActions.LayerInitialChangeUpdaterAction
 ): VisState;
 export function layerColorUIChangeUpdater(
   state: VisState,
