@@ -21,6 +21,7 @@ export type ActionType = {
   MOUSE_MOVE: string;
   REMOVE_FILTER: string;
   REMOVE_LAYER: string;
+  REMOVE_LAYER_ALL: string;
   DUPLICATE_LAYER: string;
   REMOVE_DATASET: string;
   REORDER_LAYER: string;

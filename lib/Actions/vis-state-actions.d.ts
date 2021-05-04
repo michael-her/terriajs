@@ -192,6 +192,10 @@ export function removeLayer(
   idx: number
 ): Merge<RemoveLayerUpdaterAction, {type: ActionTypes.REMOVE_LAYER}>;
 
+export type RemoveLayerAllUpdaterAction = {};
+export function removeLayerAll(
+): Merge<RemoveLayerAllUpdaterAction, {type: ActionTypes.REMOVE_LAYER_ALL}>;
+
 export type DuplicateLayerUpdaterAction = {
   idx: number;
 };

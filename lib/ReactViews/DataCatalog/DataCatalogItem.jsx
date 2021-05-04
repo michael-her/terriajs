@@ -10,7 +10,7 @@ import ObserveModelMixin from "../ObserveModelMixin";
 import raiseErrorOnRejectedPromise from "../../Models/raiseErrorOnRejectedPromise";
 import { withTranslation } from "react-i18next";
 import {connect} from 'react-redux'
-import {addLayer} from '../../Actions'
+import {addLayer, removeLayer} from '../../Actions'
 
 // Individual dataset
 export const DataCatalogItem = createReactClass({
@@ -57,12 +57,20 @@ export const DataCatalogItem = createReactClass({
       !event.ctrlKey
     ) {
       // close modal window
-      this.props.viewState.explorerPanelIsVisible = false;
-      this.props.viewState.mobileView = null;
+      // {
+      //   this.props.viewState.explorerPanelIsVisible = false;
+      //   this.props.viewState.mobileView = null;
+      // }
+      
       if (this.props.viewState.firstTimeAddingData) {
         this.props.viewState.featureInfoPanelIsVisible = true;
       }
       this.props.addLayer({item: this.props.item})
+    } else {
+      // TODO: review
+      const index = this.props.layers.reduce((ret, layer, index) => 
+        layer.uniqueId === this.props.item.uniqueId ? index : ret, -1)
+      this.props.removeLayer(index)
     }
   },
 
@@ -136,4 +144,5 @@ const mapStateToProps = ({app: {keplerGl: {map: {visState: {layers}}}}}) => {
 
 export default connect(mapStateToProps, {
   addLayer,
+  removeLayer,
 })(withTranslation()(DataCatalogItem));

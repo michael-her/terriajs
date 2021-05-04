@@ -6,6 +6,8 @@ import createReactClass from "create-react-class";
 import PropTypes from "prop-types";
 import WorkbenchListFactory from "./WorkbenchList.jsx";
 import { withTranslation } from "react-i18next";
+import {connect} from 'react-redux'
+import {removeLayerAll} from '../../Actions'
 
 import Styles from "./workbench.scss";
 
@@ -28,6 +30,7 @@ export default function WorkbenchFactory(
   
     removeAll() {
       this.props.terria.nowViewing.removeAll();
+      this.props.removeLayerAll()
     },
   
     render() {
@@ -55,5 +58,7 @@ export default function WorkbenchFactory(
     }
   });
   
-  return withTranslation()(Workbench);
+  return connect(null, {removeLayerAll})(
+    withTranslation()(Workbench)
+  );
 }

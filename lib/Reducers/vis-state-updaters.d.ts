@@ -361,6 +361,10 @@ export function removeLayerUpdater(
   state: VisState,
   action: VisStateActions.RemoveLayerUpdaterAction
 ): VisState;
+export function removeLayerAllUpdater(
+  state: VisState,
+  action: VisStateActions.RemoveLayerAllUpdaterAction
+): VisState;
 export function duplicateLayerUpdater(
   state: VisState,
   action: VisStateActions.DuplicateLayerUpdaterAction

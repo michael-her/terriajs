@@ -95,24 +95,26 @@ export default function WorkbenchListFactory(
       }
     }
   
-    render() { return (
-      <ul className={Styles.workbenchContent}>
-        <WrappedSortableContainer
-          onSortEnd={this._handleSort}
-          onSortStart={this._onSortStart}
-          updateBeforeSortStart={this._updateBeforeSortStart}
-          lockAxis="y"
-          helperClass="sorting-layers"
-          useDragHandle
-        >
-          <For each="item" index="index" of={this.props.terria.nowViewing.items}>
-            {!item.isHidden && (
+    render() {
+      const {items} = this.props.terria.nowViewing
+      return (
+        <ul className={Styles.workbenchContent}>
+          <WrappedSortableContainer
+            onSortEnd={this._handleSort}
+            onSortStart={this._onSortStart}
+            updateBeforeSortStart={this._updateBeforeSortStart}
+            lockAxis="y"
+            helperClass="sorting-layers"
+            useDragHandle
+          >
+            <For each="item" index="index" of={items.filter(item => !item.isHidden)}>
               <SortableItem
                 key={`layer-${index}` /*item.uniqueId*/}
                 index={index}
                 isSorting={this.state.isSorting}
               >
                 <WorkbenchItem
+                  index={index}
                   item={item}
                   layer={this.props.layers[index]}
                   sortData={item}
@@ -120,11 +122,11 @@ export default function WorkbenchListFactory(
                   viewState={this.props.viewState}
                 />
               </SortableItem>
-            )}
-          </For>
-        </WrappedSortableContainer>
-      </ul>
-    )}
+            </For>
+          </WrappedSortableContainer>
+        </ul>
+      )
+    }
   }
 
   const mapStateToProps = ({app: {keplerGl: {map: {visState: {layers}}}}}) => {
