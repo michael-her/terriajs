@@ -11,6 +11,8 @@ import classNames from "classnames";
 import styled from 'styled-components';
 
 import {connect} from 'react-redux'
+import {arrayMove} from '../../Utils/data-utils'
+import {reorderLayer} from '../../Actions'
 
 // make sure the element is always visible while is being dragged
 // item being dragged is appended in body, here to reset its global style
@@ -72,17 +74,20 @@ export default function WorkbenchListFactory(
 
     _handleSort = ({oldIndex, newIndex}) => {
       const item = this.props.terria.nowViewing.items[oldIndex]
+      let curIndex = oldIndex
 
-      while (oldIndex < newIndex) {
+      while (curIndex < newIndex) {
         this.props.terria.nowViewing.lower(item);
-        ++oldIndex;
+        ++curIndex;
       }
   
-      while (oldIndex > newIndex) {
+      while (curIndex > newIndex) {
         this.props.terria.nowViewing.raise(item);
-        --oldIndex;
+        --curIndex;
       }
       this.setState({isSorting: false})
+
+      this.props.reorderLayer(arrayMove(this.props.layerOrder, oldIndex, newIndex));
     }
 
     _onSortStart = () => this.setState({isSorting: true})
@@ -96,7 +101,7 @@ export default function WorkbenchListFactory(
     }
   
     render() {
-      const {items} = this.props.terria.nowViewing
+      const {layerOrder, terria: {nowViewing: {items}}} = this.props
       return (
         <ul className={Styles.workbenchContent}>
           <WrappedSortableContainer
@@ -107,9 +112,26 @@ export default function WorkbenchListFactory(
             helperClass="sorting-layers"
             useDragHandle
           >
-            <For each="item" index="index" of={items.filter(item => !item.isHidden)}>
+            <For each="order" index="idx" of={layerOrder}>
               <SortableItem
-                key={`layer-${index}` /*item.uniqueId*/}
+                key={`layer-${order}`}
+                index={idx}
+                isSorting={this.state.isSorting}
+              >
+                <WorkbenchItem
+                  index={order}
+                  item={items[idx]}
+                  layer={this.props.layers[order]}
+                  sortData={items[idx]}
+                  key={items[idx].uniqueId}
+                  viewState={this.props.viewState}
+                />
+              </SortableItem>
+            </For>
+
+            {/* <For each="item" index="index" of={items.filter(item => !item.isHidden)}>
+              <SortableItem
+                key={`layer-${index}`}
                 index={index}
                 isSorting={this.state.isSorting}
               >
@@ -122,16 +144,18 @@ export default function WorkbenchListFactory(
                   viewState={this.props.viewState}
                 />
               </SortableItem>
-            </For>
+            </For> */}
           </WrappedSortableContainer>
         </ul>
       )
     }
   }
 
-  const mapStateToProps = ({app: {keplerGl: {map: {visState: {layers}}}}}) => {
-    return {layers}
+  const mapStateToProps = ({app: {keplerGl: {map: {visState: {layers, layerOrder}}}}}) => {
+    return {layers, layerOrder}
   }
   
-  return connect(mapStateToProps, {})(WorkbenchList);
+  return connect(mapStateToProps, {
+    reorderLayer
+  })(WorkbenchList);
 }
