@@ -18,8 +18,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import ActionTypes from 'constants/action-types';
-import {UiState} from 'reducers/ui-state-updaters';
+import ActionTypes from '../Constants/action-types';
+import {UiState} from '../Reducers/ui-state-updaters';
 
 export type RegisterEntryUpdaterAction = {
   payload: {

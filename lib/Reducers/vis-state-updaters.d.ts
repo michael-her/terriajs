@@ -1,10 +1,10 @@
 import {RGBColor, RGBAColor, Millisecond} from './types';
-import {AddDataToMapOptions, ReceiveMapConfigPayload} from '../actions/actions';
-import {ParsedConfig} from '../schemas';
-import * as VisStateActions from 'actions/vis-state-actions';
-import ActionTypes from 'constants/action-types';
+import {AddDataToMapOptions, ReceiveMapConfigPayload} from '../Actions/actions';
+import {ParsedConfig} from '../Schemas';
+import * as VisStateActions from '../Actions/vis-state-actions';
+import ActionTypes from '../Constants/action-types';
 import {LoaderObject} from '@loaders.gl/loader-utils';
-import {KeplerTable, Field} from 'utils';
+import {KeplerTable, Field} from '../Utils';
 
 export {KeplerTable, Field};
 export type HistogramBin = {

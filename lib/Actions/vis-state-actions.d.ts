@@ -19,58 +19,58 @@
 // THE SOFTWARE.
 
 // vis-state-reducer
-import ActionTypes, {ActionType} from 'constants/action-types';
-import {ProtoDataset, AddDataToMapPayload} from '../actions/actions';
-import {ParsedConfig} from '../schemas';
-import {FileCacheItem} from '../processors/file-handler';
-import {Layer, LayerConfig, LayerVisConfig} from 'layers';
-import {Feature, InteractionConfig} from 'reducers/vis-state-updaters';
-import {ValueOf, Merge} from '../reducers/types';
+import ActionTypes, {ActionType} from '../Constants/action-types';
+import {ProtoDataset, AddDataToMapPayload} from '../Actions/actions';
+import {ParsedConfig} from '../Schemas';
+import {FileCacheItem} from '../Processors/file-handler';
+import {Layer, LayerConfig, LayerVisConfig} from '../Layers';
+import {Feature, InteractionConfig} from '../Reducers/vis-state-updaters';
+import {ValueOf, Merge} from '../Reducers/types';
 // TODO - import LoaderObject type from @loaders.gl/core when supported
 // TODO - import LoadOptions type from @loaders.gl/core when supported
 import {LoaderObject} from '@loaders.gl/loader-utils';
 
 export type LayerConfigChangeUpdaterAction = {
-  oldLayer: Layer;
-  newConfig: Partial<LayerConfig>;
+  id: string;
+  props: Partial<LayerConfig>;
 };
 
 export function layerConfigChange(
-  oldLayer: Layer,
-  newConfig: Partial<LayerConfig>
+  id: string,
+  props: Partial<LayerConfig>
 ): Merge<LayerConfigChangeUpdaterAction, {type: ActionTypes.LAYER_CONFIG_CHANGE}>;
 
 export type LayerTextLabelChangeUpdaterAction = {
-  oldLayer: Layer;
+  id: string;
   idx: number | 'all';
   prop: string;
   value: any;
 };
 
 export function layerTextLabelChange(
-  oldLayer: Layer,
+  id: string,
   idx: number | 'all',
   prop: string,
   value: any
 ): Merge<LayerTextLabelChangeUpdaterAction, {type: ActionTypes.LAYER_TEXT_LABEL_CHANGE}>;
 
 export type LayerTypeChangeUpdaterAction = {
-  oldLayer: Layer;
+  id: string;
   newType: string;
 };
 export function layerTypeChange(
-  oldLayer: Layer,
+  id: string,
   newType: string
 ): Merge<LayerTypeChangeUpdaterAction, {type: ActionTypes.LAYER_TYPE_CHANGE}>;
 
 export type LayerChannelChangeUpdaterAction = {
-  oldLayer: Layer;
-  newConfig: Partial<LayerConfig>;
+  id: string;
+  props: Partial<LayerConfig>;
   channel: string;
 };
 export function layerChannelChange(
-  oldLayer: Layer,
-  newConfig: Partial<LayerConfig>,
+  id: string,
+  props: Partial<LayerConfig>,
   channel: string
 ): Merge<
   LayerChannelChangeUpdaterAction,
@@ -78,32 +78,32 @@ export function layerChannelChange(
 >;
 
 export type LayerVisualChangeUpdaterAction = {
-  oldLayer: Layer;
-  newVisConfig: Partial<LayerVisConfig>;
+  id: string;
+  props: Partial<LayerVisConfig>;
 };
 export function layerVisualChange(
-  oldLayer: Layer,
-  newVisConfig: Partial<LayerVisConfig>
+  id: string,
+  props: Partial<LayerVisConfig>
 ): Merge<LayerVisualChangeUpdaterAction, {type: ActionTypes.LAYER_VISUAL_CHANGE}>;
 
 export type LayerInitialChangeUpdaterAction = {
-  oldLayer: Layer;
-  newVisConfig: Partial<LayerVisConfig>;
+  id: string;
+  props: Partial<LayerVisConfig>;
 };
 export function layerInitialChange(
-  oldLayer: Layer,
-  newVisConfig: Partial<LayerVisConfig>
+  id: string,
+  props: Partial<LayerVisConfig>
 ): Merge<LayerInitialChangeUpdaterAction, {type: ActionTypes.LAYER_INITIAL_CHANGE}>;
 
 export type LayerColorUIChangeUpdaterAction = {
-  oldLayer: Layer;
+  id: string;
   prop: string;
-  newConfig: object;
+  props: object;
 };
 export function layerColorUIChange(
-  oldLayer: Layer,
+  id: stirng,
   prop: string,
-  newConfig: object
+  props: object
 ): Merge<LayerColorUIChangeUpdaterAction, {type: ActionTypes.LAYER_COLOR_UI_CHANGE}>;
 
 export type UpdateLayerBlendingUpdaterAction = {

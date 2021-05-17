@@ -7,11 +7,11 @@ import {
   VisState,
   RGBColor,
   Merge
-} from 'reducers';
+} from '../Reducers';
 import {Schema} from './schema';
 
-import {LayerTextLabel} from 'layers/layer-factory';
-import {datasetSchema, visStateSchema, mapStyleSchema, mapStateSchema} from 'schemas';
+import {LayerTextLabel} from '../Layers/layer-factory';
+import {datasetSchema, visStateSchema, mapStyleSchema, mapStateSchema} from '.';
 
 export type SavedFilter = {
   dataId: Filter['dataId'];

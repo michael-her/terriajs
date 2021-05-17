@@ -1,6 +1,6 @@
 import {VisState, Datasets, Dataset} from './vis-state-updaters';
-import {ParsedConfig, ParsedLayer} from 'schemas';
-import {Layer} from 'layers';
+import {ParsedConfig, ParsedLayer} from '../Schemas';
+import {Layer} from '../Layers';
 
 export function mergeAnimationConfig(
   state: VisState,

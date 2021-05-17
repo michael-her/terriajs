@@ -1,6 +1,6 @@
-import * as UiStateActions from 'actions/ui-state-actions';
-import {ToggleSplitMapUpdaterAction} from 'actions/map-state-actions';
-import {LoadFilesUpdaterAction, LoadFilesErrUpdaterAction} from ' actions/vis-state-actions';
+import * as UiStateActions from '../Actions/ui-state-actions';
+import {ToggleSplitMapUpdaterAction} from '../Actions/map-state-actions';
+import {LoadFilesUpdaterAction, LoadFilesErrUpdaterAction} from ' ../Actions/vis-state-actions';
 
 export type ExportImage = {
   ratio: string;

@@ -18,15 +18,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import ActionTypes from 'constants/action-types';
-import {Merge, RGBColor} from '../reducers/types';
+import ActionTypes from '../Constants/action-types';
+import {Merge, RGBColor} from '../Reducers/types';
 import {
   InputStyle,
   MapStyles,
   VisibleLayerGroups,
   MapStyles
-} from '../reducers/map-style-updaters';
-import {MapState} from '../reducers/map-state-updaters';
+} from '../Reducers/map-style-updaters';
+import {MapState} from '../Reducers/map-state-updaters';
 
 export function addCustomMapStyle(): {type: ActionTypes.ADD_CUSTOM_MAP_STYLE};
 

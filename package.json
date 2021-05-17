@@ -143,6 +143,7 @@
     "react-vis": "^1.8.0",
     "redux": "^4.0.5",
     "redux-actions": "^2.2.1",
+    "redux-promise": "^0.6.0",
     "reselect": "^4.0.0",
     "resolve-url-loader": "^3.0.1",
     "retry": "^0.12.0",

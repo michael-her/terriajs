@@ -1,4 +1,4 @@
-import {RGBColor, RGBAColor, HexColor, Field} from 'reducers';
+import {RGBColor, RGBAColor, HexColor, Field} from '../Reducers';
 
 export type ColorRange = {
   name: string;

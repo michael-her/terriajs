@@ -18,7 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import {Filter, Field, GpuFilter} from 'reducers/vis-state-updaters';
+import {Filter, Field, GpuFilter} from '../Reducers/vis-state-updaters';
 
 export function setFilterGpuMode(filter: Filter, filters: Filter[]): Filter;
 export function assignGpuChannel(filter: Filter, filters: Filter[]): Filter;

@@ -1,4 +1,4 @@
-import {InteractionConfig, Field, TooltipField, CompareType} from '../reducers/vis-state-updaters';
+import {InteractionConfig, Field, TooltipField, CompareType} from '../Reducers/vis-state-updaters';
 
 /**
  * Minus sign used in tooltip formatting.

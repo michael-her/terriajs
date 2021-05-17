@@ -1,5 +1,5 @@
-import * as ProviderActions from 'actions/provider-actions';
-import {MapListItem} from 'cloud-providers';
+import * as ProviderActions from '../Actions/provider-actions';
+import {MapListItem} from '../Cloud-providers';
 
 type ActionPayload<P> = {
   type?: string;

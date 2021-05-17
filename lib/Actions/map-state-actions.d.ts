@@ -18,9 +18,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import ActionTypes from 'constants/action-types';
-import {ValueOf, Merge} from '../reducers/types';
-import {Bounds, Viewport} from '../reducers/map-state-updaters';
+import ActionTypes from '../Constants/action-types';
+import {ValueOf, Merge} from '../Reducers/types';
+import {Bounds, Viewport} from '../Reducers/map-state-updaters';
 
 export type TogglePerspectiveUpdaterAction = {};
 export function togglePerspective(): Merge<

@@ -1,7 +1,7 @@
 import {RGBColor} from './types';
-import ActionTypes from 'constants/action-types';
-import {ReceiveMapConfigPayload, KeplerGlInitPayload} from '../actions/actions';
-import * as MapStyleActions from '../actions/map-style-actions';
+import ActionTypes from '../Constants/action-types';
+import {ReceiveMapConfigPayload, KeplerGlInitPayload} from '../Actions/actions';
+import * as MapStyleActions from '../Actions/map-style-actions';
 
 export type LayerGroup = {
   slug: string;

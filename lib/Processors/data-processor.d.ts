@@ -1,6 +1,6 @@
-import {ProtoDataset} from '../actions';
-import {Field} from 'reducers/vis-state-updaters';
-import {SavedMap, ParsedDataset} from 'schemas';
+import {ProtoDataset} from '../Actions';
+import {Field} from '../Reducers/vis-state-updaters';
+import {SavedMap, ParsedDataset} from '../Schemas';
 
 type RowData = {
   [key: string]: any;

@@ -1,6 +1,6 @@
-import {Millisecond} from 'reducers/types';
-import {Layer, Field} from 'reducers/vis-state-updaters';
-import {Bounds} from 'reducers/map-state-updaters';
+import {Millisecond} from '../Reducers/types';
+import {Layer, Field} from '../Reducers/vis-state-updaters';
+import {Bounds} from '../Reducers/map-state-updaters';
 
 export function maybeToDate(isTime: boolean, fieldIdx: number, format: string, d: any[]): any;
 

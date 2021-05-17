@@ -1,6 +1,6 @@
-import * as MapStateActions from 'actions/map-state-actions';
-import {ReceiveMapConfigPayload} from '../actions/actions';
-import ActionTypes from 'constants/action-types';
+import * as MapStateActions from '../Actions/map-state-actions';
+import {ReceiveMapConfigPayload} from '../Actions/actions';
+import ActionTypes from '../Constants/action-types';
 
 export type MapState = {
   pitch: number;

@@ -20,4 +20,4 @@ export * from './provider-actions';
 //   wrapTo
 // } from './action-wrapper';
 
-export {default as ActionTypes} from '../constants/action-types';
+export {default as ActionTypes} from '../Constants/action-types';

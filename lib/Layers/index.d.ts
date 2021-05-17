@@ -1,5 +1,5 @@
-import {RGBColor, RGBAColor} from '../reducers/types';
-import {Field, Datasets, KeplerTable} from '../reducers/vis-state-updaters';
+import {RGBColor, RGBAColor} from '../Reducers/types';
+import {Field, Datasets, KeplerTable} from '../Reducers/vis-state-updaters';
 import {LayerTextLabel, ColorRange, ColorUI, LayerVisConfig} from './layer-factory';
 
 export type LayerColumns = {

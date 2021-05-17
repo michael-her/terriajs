@@ -18,12 +18,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import ActionTypes from 'constants/action-types';
-import {ParsedConfig} from '../schemas';
-import {RGBColor} from 'reducers/types';
-import {Bounds} from 'reducers/map-state-updaters';
-import {MapInfo} from 'reducers/vis-state-updaters';
-import {UiState} from 'reducers/ui-state-updaters';
+import ActionTypes from '../Constants/action-types';
+import {ParsedConfig} from '../Schemas';
+import {RGBColor} from '../Reducers/types';
+import {Bounds} from '../Reducers/map-state-updaters';
+import {MapInfo} from '../Reducers/vis-state-updaters';
+import {UiState} from '../Reducers/ui-state-updaters';
 
 /**
  * Input dataest parsed to addDataToMap

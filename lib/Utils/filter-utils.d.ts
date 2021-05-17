@@ -13,10 +13,10 @@ import {
   VisState,
   LineChart,
   TimeRangeFilter
-} from '../reducers/vis-state-updaters';
-import {Layer} from 'layers';
-import {Field} from 'reducers/types';
-import {ParsedConfig} from 'schemas';
+} from '../Reducers/vis-state-updaters';
+import {Layer} from '../Layers';
+import {Field} from '../Reducers/types';
+import {ParsedConfig} from '../Schemas';
 import {FilterDatasetOpt} from './table-utils/kepler-table';
 
 export function applyFilterFieldName(

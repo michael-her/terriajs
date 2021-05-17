@@ -18,8 +18,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import {Layer, LayerClassesType} from 'layers';
-import {VisState, Dataset, TooltipField, CompareType} from 'reducers/vis-state-updaters';
+import {Layer, LayerClassesType} from '../Layers';
+import {VisState, Dataset, TooltipField, CompareType} from '../Reducers/vis-state-updaters';
 
 export function calculateLayerData(
   layer: Layer,

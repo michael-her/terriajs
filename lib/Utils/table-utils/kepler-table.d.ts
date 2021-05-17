@@ -1,7 +1,6 @@
-import {RGBColor} from '../../reducers/types';
-import {Layer} from 'layers';
-import {Filter} from '../reducers/vis-state-updaters';
-import {Dataset, Feild} from '../../reducers/vis-state-updaters';
+import {RGBColor} from '../../Reducers/types';
+import {Layer} from '../../Layers';
+import {Dataset, Feild, Filter} from '../../Reducers/vis-state-updaters';
 
 export type Field = {
   analyzerType: string;
