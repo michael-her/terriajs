@@ -94,6 +94,7 @@ export default function SidePanelFactory(
       const { t } = this.props;
       const searchState = this.props.viewState.searchState;
       const addData = t("addData.addDataBtnText");
+      const showSearchBox = this.props.terria.configParameters.searchEnabled
       return (
         <div className={Styles.workBench}>
           <div className={Styles.header}>
@@ -105,13 +106,15 @@ export default function SidePanelFactory(
               btnText={t("addData.btnHide")}
             />
   
-            <SearchBox
-              onSearchTextChanged={this.changeSearchText}
-              onDoSearch={this.search}
-              onFocus={this.startLocationSearch}
-              searchText={searchState.locationSearchText}
-              placeholder={t("search.placeholder")}
-            />
+            {showSearchBox &&
+              <SearchBox
+                onSearchTextChanged={this.changeSearchText}
+                onDoSearch={this.search}
+                onFocus={this.startLocationSearch}
+                searchText={searchState.locationSearchText}
+                placeholder={t("search.placeholder")}
+              />
+            }
             <div className={Styles.addData}>
               <button
                 type="button"

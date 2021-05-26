@@ -583,6 +583,12 @@
       "moreThanFourTiles": "The imagery provider's rectangle and minimumLevel indicate that there are {{tileCount}} tiles at the minimum level. Imagery providers with more than four tiles at the minimum level are not supported.",
       "maxLevelError": "Maximum level too high for data set"
     },
+    "geowaveVectorTileImageryProvider": {
+      "requireLayerName": "GeowaveVectorTileImageryProvider requires a layer name passed as options.layerName",
+      "requireStyles": "GeowaveVectorTileImageryProvider requires a styling function passed as options.styleFunc",
+      "moreThanFourTiles": "The imagery provider's rectangle and minimumLevel indicate that there are {{tileCount}} tiles at the minimum level. Imagery providers with more than four tiles at the minimum level are not supported.",
+      "maxLevelError": "Maximum level too high for data set"
+    },
     "regionProvider": {
       "csvRegionMappingTitle": "CSV region mapping",
       "csvRegionMappingMessageZeroFound": "Zero region names found for region type {{regionType}}",
