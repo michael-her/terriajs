@@ -128,23 +128,6 @@ export default function WorkbenchListFactory(
                 />
               </SortableItem>
             </For>
-
-            {/* <For each="item" index="index" of={items.filter(item => !item.isHidden)}>
-              <SortableItem
-                key={`layer-${index}`}
-                index={index}
-                isSorting={this.state.isSorting}
-              >
-                <WorkbenchItem
-                  index={index}
-                  item={item}
-                  layer={this.props.layers[index]}
-                  sortData={item}
-                  key={item.uniqueId}
-                  viewState={this.props.viewState}
-                />
-              </SortableItem>
-            </For> */}
           </WrappedSortableContainer>
         </ul>
       )
