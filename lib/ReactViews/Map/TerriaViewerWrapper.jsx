@@ -25,10 +25,13 @@ const TerriaViewerWrapper = createReactClass({
     // Create the map/globe.
     this.terriaViewer = TerriaViewer.create(this.props.terria, {
       terrain: this.props.terria.configParameters.cesiumTerrainUrl,
-      developerAttribution: {
-        text: "Data61",
-        link: "http://www.csiro.au/en/Research/D61"
-      }
+      // michael: attribution
+      // developerAttribution: {
+      //   text: "Data61",
+      //   link: "http://www.csiro.au/en/Research/D61"
+      // }
+      maximumLeafletZoomLevel: this.props.terria.configParameters.maximumLeafletZoomLevel,
+      hideAllCredit: this.props.terria.configParameters.hideAllCredit,
     });
   },
 

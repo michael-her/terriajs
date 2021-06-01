@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 
 import ObserveModelMixin from "../ObserveModelMixin";
 import Styles from "./metadata-table.scss";
+import get from 'lodash.get'
 
 /**
  * Displays a table showing the name and values of items in a MetadataItem.
@@ -15,22 +16,26 @@ const MetadataTable = createReactClass({
   mixins: [ObserveModelMixin],
 
   propTypes: {
-    metadataItem: PropTypes.object.isRequired // A MetadataItem instance.
+    metadataItem: PropTypes.object.isRequired, // A MetadataItem instance.
+    itemsPath: PropTypes.string,
+    itemsKey: PropTypes.string,
   },
 
   render() {
-    const metadataItem = this.props.metadataItem;
+    const {metadataItem, itemsPath, itemsKey} = this.props;
+    const root = itemsPath ? get(metadataItem, itemsPath, undefined) : metadataItem
+    const items = itemsKey ? root[itemsKey] : root.items
     return (
       <div className={Styles.root}>
-        <If condition={metadataItem.items.length > 0}>
+        <If condition={items.length > 0}>
           <table>
             <tbody>
-              <For each="item" index="i" of={metadataItem.items}>
+              <For each="item" index="i" of={items}>
                 <tr key={i}>
                   <th className={Styles.name}>{item.name}</th>
                   <td className={Styles.value}>
                     <Choose>
-                      <When condition={item.items.length > 0}>
+                      <When condition={item.items && item.items.length > 0}>
                         <MetadataTable metadataItem={item} />
                       </When>
                       <When condition={Array.isArray(item.value)}>
@@ -41,6 +46,9 @@ const MetadataTable = createReactClass({
                         >
                           {item.value.join(", ")}
                         </If>
+                      </When>
+                      <When condition={item.localType}>
+                        {item.localType}
                       </When>
                       <Otherwise>{item.value}</Otherwise>
                     </Choose>

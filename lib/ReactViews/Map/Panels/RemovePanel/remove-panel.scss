@@ -1,0 +1,183 @@
+@import "~terriajs-variables";
+@import "../../../../Sass/common/mixins";
+
+.share-panel {
+  font-size: $font-size-mid-small;
+}
+
+.catalog-share {
+  float: right;
+}
+
+.story-share {
+  position: relative;
+  text-align: center;
+  width: 50%;
+  margin-left: $padding-small;
+}
+
+.catalog-share-inner {
+  background: $grey-lightest;
+  color: $text-darker;
+}
+
+.story-share-inner {
+  background: $grey-lightest;
+  color: $text-darker;
+  right: 0;
+  text-align: left;
+}
+
+.dropdown-inner {
+  width: $share-panel-width;
+  @include transform-origin(50%, top);
+}
+
+.btn--catalogShare {
+  font-size: $font-size-data-preview;
+  background: transparent;
+  color: $color-primary;
+  box-shadow: none;
+  svg {
+    width: 20px;
+    height: 20px;
+    fill: $color-primary;
+  }
+  &:hover,
+  &:focus {
+    color: $text-light;
+  }
+}
+
+.btn--storyShare {
+  position: relative;
+  padding-left: 35px;
+  height: inherit;
+
+  composes: btn from "../../../../Sass/common/_buttons.scss";
+  composes: btn-primary from "../../../../Sass/common/_buttons.scss";
+  svg {
+    width: 20px;
+    height: 20px;
+    fill: #ffffff;
+    position: absolute;
+    left: 15px;
+    top: 13px;
+  }
+}
+
+.btn--withoutText {
+  svg {
+    fill: $text-darker;
+  }
+  // not in design but should give life to the button?
+  &:hover,
+  &:focus {
+    color: $color-primary;
+  }
+}
+
+.btn--wrapper {
+  text-align: right;
+}
+
+.btn--advanced {
+  outline: 0;
+}
+
+.img--share {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+
+  img {
+    width: 100%;
+  }
+}
+
+@include empty-module("link-wrapper");
+
+.link {
+  @include link($grey-lighter2);
+}
+
+.paragraph {
+  margin: $padding 0;
+  display: block;
+}
+
+.clipboard-for-catalog-share {
+  margin: 15px;
+}
+
+.clipboard-for-story-share {
+  margin: 15px;
+}
+
+.shareUrlfield {
+  width: calc(100% - 80px);
+  padding-left: 1rem;
+  padding-right: 0;
+}
+
+.mobileHeader {
+  margin-bottom: 10px;
+}
+
+.shorten-url {
+  button {
+    text-align: left;
+    border: 0px;
+    background: transparent;
+    outline: 0;
+  }
+  svg {
+    display: inline;
+    padding-right: 5px;
+    fill: #fff;
+    height: 14px;
+    width: 14px;
+  }
+}
+
+.explanation {
+  font-size: smaller;
+  font-weight: lighter;
+  color: $text-light-dimmed;
+}
+
+.format-button,
+.print-button {
+  composes: btn from "../../../../Sass/common/_buttons.scss";
+  composes: btn-primary from "../../../../Sass/common/_buttons.scss";
+  width: auto;
+  display: inline;
+  margin: 2px;
+}
+
+.print-view-loader {
+  fill: $text-light;
+}
+
+.warning {
+  margin: $padding 0;
+  border-radius: $radius-small;
+  background: #feb938;
+  color: #552800;
+  padding: $padding;
+
+  ul {
+    padding-top: $padding;
+    padding-inline-start: 0;
+    list-style: none;
+  }
+  .warning-link {
+    color: #552800;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}

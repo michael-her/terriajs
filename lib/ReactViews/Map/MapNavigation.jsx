@@ -7,6 +7,7 @@ import React from "react";
 import { Medium } from "../Generic/Responsive";
 import Styles from "./map-navigation.scss";
 import ToggleSplitterTool from "./Navigation/ToggleSplitterTool";
+import RefreshMapTool from './Navigation/RefreshMapTool'
 import ViewerMode from "../../Models/ViewerMode";
 import ZoomControl from "./Navigation/ZoomControl.jsx";
 
@@ -60,6 +61,11 @@ const MapNavigation = createReactClass({
           <If condition={!this.props.terria.configParameters.disableSplitter}>
             <div className={Styles.control}>
               <ToggleSplitterTool terria={this.props.viewState.terria} />
+            </div>
+          </If>
+          <If condition={this.props.terria.configParameters.refreshToolEnabled}>
+            <div className={Styles.control}>
+              <RefreshMapTool terria={this.props.viewState.terria} />
             </div>
           </If>
           <For each="item" of={this.props.navItems} index="i">

@@ -11,6 +11,8 @@ import raiseErrorOnRejectedPromise from "../../Models/raiseErrorOnRejectedPromis
 import { withTranslation } from "react-i18next";
 import {connect} from 'react-redux'
 import {addLayer, removeLayer} from '../../Actions'
+import Console from 'global/console'
+import knockout from 'terriajs-cesium/Source/ThirdParty/knockout'
 
 // Individual dataset
 export const DataCatalogItem = createReactClass({
@@ -25,6 +27,7 @@ export const DataCatalogItem = createReactClass({
     t: PropTypes.func.isRequired,
 
     addLayer: PropTypes.func.isRequired,
+    removeLayer: PropTypes.func.isRequired,
   },
 
   onBtnClicked(event) {
@@ -46,6 +49,7 @@ export const DataCatalogItem = createReactClass({
   },
 
   toggleEnable(event) {
+    // Console.log('[DataCatalogItem.toggleEnable] item.toggleEnabled()')
     this.props.item.toggleEnabled();
     this.props.viewState.terria.checkNowViewingForTimeWms();
     // set preview as well
@@ -65,11 +69,22 @@ export const DataCatalogItem = createReactClass({
       if (this.props.viewState.firstTimeAddingData) {
         this.props.viewState.featureInfoPanelIsVisible = true;
       }
-      this.props.addLayer({item: this.props.item})
+
+      // michael
+      const {item, addLayer} = this.props
+      knockout.when(function() {
+        return item.isEnabled && !item.isLoading
+      }, function () {
+        // Console.log(`[DataCatalogItem.toggleEnable] ${item.name} enabled`)
+        addLayer({item})
+      })
+
     } else {
       // TODO: review
       const index = this.props.layers.reduce((ret, layer, index) => 
         layer.uniqueId === this.props.item.uniqueId ? index : ret, -1)
+
+      // michael
       this.props.removeLayer(index)
     }
   },
@@ -106,7 +121,7 @@ export const DataCatalogItem = createReactClass({
         title={getAncestors(item)
           .map(member => member.nameInCatalog)
           .join(" → ")}
-        btnState={this.getState()}
+        btnState={this.getItemState()}
         onBtnClick={this.onBtnClicked}
         // All things are "removable" - meaning add and remove from workbench,
         //    but only user data is "trashable"
@@ -123,7 +138,7 @@ export const DataCatalogItem = createReactClass({
     );
   },
 
-  getState() {
+  getItemState() {
     if (this.props.item.isLoading) {
       return "loading";
     } else if (this.props.viewState.useSmallScreenInterface) {

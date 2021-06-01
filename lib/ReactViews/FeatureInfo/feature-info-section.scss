@@ -44,6 +44,10 @@
   table {
     @extend %clearfix;
     font-family: $font-feature-info;
+    // michael
+    font-size: 12px;
+    width: 100%;
+
     max-width: 100%;
     @if variable-exists(feature-info-table-width) {
       width: $feature-info-table-width;
@@ -51,11 +55,20 @@
     border-collapse: collapse;
   }
 
+  // michael
+  th {
+    color: $text-light-dimmed;
+  }
+
   td {
     position: relative;
     border-collapse: collapse;
-    border: $feature-info-table-border-style;
+    // border: $feature-info-table-border-style;
     padding: 5px;
+
+    // michael
+    border: none;
+    text-align-last: right;
   }
 
   tr:nth-child(odd) {

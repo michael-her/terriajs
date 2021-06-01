@@ -10,9 +10,12 @@ import measureElement from "../measureElement";
 import ObserveModelMixin from "../ObserveModelMixin";
 import Styles from "./mappable-preview.scss";
 import SharePanel from "../Map/Panels/SharePanel/SharePanel.jsx";
+import RemovePanel from "../Map/Panels/RemovePanel/RemovePanel.jsx";
 import { withTranslation } from "react-i18next";
 import {connect} from 'react-redux'
 import {addLayer} from '../../Actions'
+import Console from 'global/console'
+import knockout from 'terriajs-cesium/Source/ThirdParty/knockout'
 
 /**
  * CatalogItem preview that is mappable (as opposed to say, an analytics item that can't be displayed on a map without
@@ -33,21 +36,31 @@ const MappablePreview = createReactClass({
   },
 
   toggleOnMap(event) {
+    // Console.log('[DataCatalogItem.toggleEnable] item.toggleEnabled()')
     this.props.previewed.toggleEnabled();
     this.props.terria.checkNowViewingForTimeWms();
     if (defined(this.props.viewState.storyShown)) {
       this.props.viewState.storyShown = false;
     }
+
     if (
       this.props.previewed.isEnabled === true &&
       !event.shiftKey &&
       !event.ctrlKey
     ) {
+      // close modal window
+      // 프리뷰에서 레이어를 추가할 경우 '지도로 이동'
       this.props.viewState.explorerPanelIsVisible = false;
       this.props.viewState.mobileView = null;
-    }
-    if (this.props.previewed.isEnabled) {
-      this.props.addLayer({item: this.props.previewed})
+
+      // michael
+      const {previewed: item, addLayer} = this.props
+      knockout.when(function() {
+        return item.isEnabled && !item.isLoading
+      }, function () {
+        // Console.log(`[MappablePreview.toggleOnMap] ${item.name} enabled`)
+        addLayer({item})
+      })
     }
   },
 
@@ -94,6 +107,13 @@ const MappablePreview = createReactClass({
             >
               <div className={Styles.shareLinkWrapper}>
                 <SharePanel
+                  catalogShare
+                  catalogShareWithoutText
+                  modalWidth={this.props.widthFromMeasureElementHOC}
+                  terria={this.props.terria}
+                  viewState={this.props.viewState}
+                />
+                <RemovePanel
                   catalogShare
                   catalogShareWithoutText
                   modalWidth={this.props.widthFromMeasureElementHOC}

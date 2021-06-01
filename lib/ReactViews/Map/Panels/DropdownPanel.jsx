@@ -13,6 +13,7 @@ import BaseOuterPanel from "./BaseOuterPanel";
 import Styles from "./panel.scss";
 
 import defined from "terriajs-cesium/Source/Core/defined";
+import get from 'lodash.get'
 
 const DropdownPanel = createReactClass({
   displayName: "DropdownPanel",
@@ -70,8 +71,12 @@ const DropdownPanel = createReactClass({
 
   render() {
     let iconGlyph;
+    // michael: supports kepler.gl icons
+    let keplerIcon;
     if (defined(Icon.GLYPHS[this.props.theme.icon])) {
       iconGlyph = Icon.GLYPHS[this.props.theme.icon];
+    } else if (get(this.props.theme.icon, 'type.prototype') instanceof React.Component) {
+      keplerIcon = this.props.theme.icon
     } else {
       iconGlyph = this.props.theme.icon;
     }
@@ -89,8 +94,11 @@ const DropdownPanel = createReactClass({
           title={this.props.btnTitle}
           ref={element => (this.buttonElement = element)}
         >
-          <If condition={this.props.theme.icon}>
+          <If condition={iconGlyph}>
             <Icon glyph={iconGlyph} />
+          </If>
+          <If condition={keplerIcon}>
+            {keplerIcon}
           </If>
           <If condition={this.props.btnText}>
             <span>{this.props.btnText}</span>

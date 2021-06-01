@@ -16,6 +16,7 @@ import Loader from "../../../Loader";
 import { withTranslation, Trans } from "react-i18next";
 import {connect} from 'react-redux'
 import {addLayer} from '../../../../Actions'
+import Console from 'global/console'
 
 // Local and remote data have different dataType options
 const remoteDataType = getDataType().remoteDataType;
@@ -100,15 +101,23 @@ const AddData = createReactClass({
         return newItem;
       });
     }
-    addUserCatalogMember(this.props.terria, promise).then(addedItem => {
-      if (addedItem && !(addedItem instanceof TerriaError)) {
-        this.onFileAddFinished(addedItem);
+    const {addLayer} = this.props
+    addUserCatalogMember(this.props.terria, promise).then(item => {
+      if (item && !(item instanceof TerriaError)) {
+        this.onFileAddFinished(item);
       }
       this.setState({
         isLoading: false
       });
       this.props.resetTab();
-      this.props.addLayer({item: addedItem})
+
+      // michael
+      knockout.when(function() {
+        return item.isEnabled && !item.isLoading
+      }, function () {
+        // Console.log(`[AddData.handleUrl] ${item.name} enabled`)
+        addLayer({item})
+      })
     });
   },
 

@@ -13,6 +13,7 @@ import styled from 'styled-components';
 import {connect} from 'react-redux'
 import {arrayMove} from '../../Utils/data-utils'
 import {reorderLayer} from '../../Actions'
+import Console from 'global/console'
 
 // make sure the element is always visible while is being dragged
 // item being dragged is appended in body, here to reset its global style
@@ -102,6 +103,7 @@ export default function WorkbenchListFactory(
   
     render() {
       const {layerOrder, terria: {nowViewing: {items}}} = this.props
+      // Console.log("[WorkbenchList.render] START", {items, layerOrder})
       return (
         <ul className={Styles.workbenchContent}>
           <WrappedSortableContainer
