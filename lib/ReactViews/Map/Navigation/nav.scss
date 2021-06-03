@@ -29,6 +29,17 @@
       width: 20px;
     }
   }
+
+  &:hover,
+  &--hover {
+    svg {
+      fill: #fff;
+      path {
+        fill: #fff;
+      }
+    }
+    background: get-hover-color($color-primary); // $color-primary; 
+  }
 }
 
 .btn-primary {
@@ -37,7 +48,6 @@
 
   svg {
     fill: #fff;
-
     path {
       fill: #fff;
     }

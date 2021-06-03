@@ -31,6 +31,7 @@ const TerriaViewerWrapper = createReactClass({
       //   link: "http://www.csiro.au/en/Research/D61"
       // }
       maximumLeafletZoomLevel: this.props.terria.configParameters.maximumLeafletZoomLevel,
+      minimumZoomDistance: this.props.terria.configParameters.minimumZoomDistance,
       hideAllCredit: this.props.terria.configParameters.hideAllCredit,
     });
   },
