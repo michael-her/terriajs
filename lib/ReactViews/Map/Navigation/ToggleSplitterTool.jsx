@@ -5,7 +5,7 @@ import React from "react";
 
 import Icon from "../../Icon.jsx";
 import ObserveModelMixin from "../../ObserveModelMixin";
-import Styles from "./toggle_splitter_tool.scss";
+import Styles from "./map_tool_button.scss";
 import { withTranslation } from "react-i18next";
 
 const ToggleSplitterTool = createReactClass({
@@ -28,7 +28,7 @@ const ToggleSplitterTool = createReactClass({
       return null;
     }
     return (
-      <div className={Styles.toggle_splitter_tool}>
+      <div className={Styles.map_tool_button}>
         <button
           type="button"
           className={Styles.btn}

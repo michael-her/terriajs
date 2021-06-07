@@ -10,7 +10,7 @@ import FeatureInfoPanel from "./../FeatureInfo/FeatureInfoPanel.jsx";
 import FeedbackForm from "../Feedback/FeedbackForm.jsx";
 import MapColumn from "./MapColumn.jsx";
 import MapInteractionWindow from "./../Notification/MapInteractionWindow.jsx";
-import MapNavigation from "./../Map/MapNavigation.jsx";
+import MapNavigationFactory from "./../Map/MapNavigation.jsx";
 import MenuBar from "./../Map/MenuBar.jsx";
 import ExperimentalFeatures from "./../Map/ExperimentalFeatures.jsx";
 import MobileHeader from "./../Mobile/MobileHeader.jsx";
@@ -108,6 +108,41 @@ export const modalContainerSelector = (props, rootNode) => ({
   onExportToCloudError: props.onExportToCloudError
 });
 
+export const mapFieldsSelector = props => ({
+  getMapboxRef: props.getMapboxRef,
+  mapboxApiAccessToken: props.mapboxApiAccessToken,
+  mapboxApiUrl: props.mapboxApiUrl,
+  mapState: props.mapState,
+  visState: props.visState,
+  mapStyle: props.mapStyle,
+  onDeckInitialized: props.onDeckInitialized,
+  onViewStateChange: props.onViewStateChange,
+  deckGlProps: props.deckGlProps,
+  uiStateActions: props.uiStateActions,
+  visStateActions: props.visStateActions,
+  mapStateActions: props.mapStateActions,
+
+  // visState
+  editor: props.visState.editor,
+  datasets: props.visState.datasets,
+  layers: props.visState.layers,
+  layerOrder: props.visState.layerOrder,
+  layerData: props.visState.layerData,
+  layerBlending: props.visState.layerBlending,
+  filters: props.visState.filters,
+  interactionConfig: props.visState.interactionConfig,
+  hoverInfo: props.visState.hoverInfo,
+  clicked: props.visState.clicked,
+  mousePos: props.visState.mousePos,
+  animationConfig: props.visState.animationConfig,
+
+  // uiState
+  activeSidePanel: props.uiState.activeSidePanel,
+  mapControls: props.uiState.mapControls,
+  readOnly: props.uiState.readOnly,
+  locale: props.uiState.locale
+});
+
 /**
  * Override default kepler.gl actions with user defined actions using the same key
  */
@@ -178,6 +213,7 @@ StandardUserInterfaceFactory.deps = [
   PanelHeaderActionFactory,
   FieldListItemFactoryFactory,
   InfoHelperFactory,
+  MapNavigationFactory,
 ]
 
 export default function StandardUserInterfaceFactory(
@@ -195,6 +231,7 @@ export default function StandardUserInterfaceFactory(
   PanelHeaderAction,
   FieldListItem,
   InfoHelper,
+  MapNavigation,
 ) {
 
   /** blah */
@@ -319,7 +356,8 @@ export default function StandardUserInterfaceFactory(
         !this.props.viewState.explorerPanelIsVisible &&
         !this.props.viewState.storyBuilderShown;
       const showSidePanel = this.props.terria.configParameters.sideEnabled;
-
+      
+      const mapFields = mapFieldsSelector(this.props)
       const modalContainerFields = modalContainerSelector(this.props, this.root.current);
       
       return (
@@ -448,6 +486,7 @@ export default function StandardUserInterfaceFactory(
                     terria={terria}
                     viewState={this.props.viewState}
                     navItems={customElements.nav}
+                    {...mapFields}
                   />
                 </div>
               </If>

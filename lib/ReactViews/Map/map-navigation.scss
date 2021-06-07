@@ -28,16 +28,35 @@
   height: 40px;
 }
 
+.zoom {
+  @media (min-width: $sm) {
+    margin: 7px 0;
+    // michael
+    margin-right: 16px;
+    height: auto;
+  }
+  margin: 4px 8px;
+  text-align: center;
+  //ie sizing fix
+  height: 40px;
+}
+
 .navs {
   display: flex;
   flex-direction: column;
+  // michael
+  align-items: flex-end;
 }
 
 .controls {
   display: flex;
   @media (min-width: $sm) {
     flex-direction: column;
-    margin-right: 0;
+    // michael
+    margin-right: 12px; // 0;
   }
   flex-direction: row;
+  // michael
+  align-items: flex-end;
+  margin-top: 4px;
 }
