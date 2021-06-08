@@ -15,6 +15,7 @@ import Styles from "./data-catalog-group.scss";
  */
 function CatalogGroup(props) {
   const { t } = useTranslation();
+  const collapseStyle = {transition: 'transform 0.2s', transform: props.open ? 'rotate(90deg)' : 'none'}
   return (
     <li className={Styles.root}>
       <button
@@ -43,11 +44,7 @@ function CatalogGroup(props) {
             [Styles.offsetRight]: props.removable
           })}
         >
-          {props.open ? (
-            <Icon glyph={Icon.GLYPHS.opened} />
-          ) : (
-            <Icon glyph={Icon.GLYPHS.closed} />
-          )}
+          <Icon glyph={Icon.GLYPHS.closed} style={collapseStyle} />
         </span>
       </button>
       <If condition={props.removable}>

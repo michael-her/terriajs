@@ -154,7 +154,7 @@ const RemovePanel = createReactClass({
           }}
           userOnClick={this.props.userOnClick}
         >
-          {t('catalog.removeMessage', 'This catalog will be removed permanently.')}
+          {t('models.catalog.removeMessage', 'This catalog will be removed permanently.')}
         </MenuPanel>
       </div>
     )

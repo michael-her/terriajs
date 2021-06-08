@@ -14,3 +14,5 @@ terriajs.pid
 /wwwroot/user-guide/
 package-lock.json
 *.swp
+
+yarn-error.log

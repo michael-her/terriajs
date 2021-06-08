@@ -12,6 +12,7 @@ import Styles from "./mappable-preview.scss";
 import SharePanel from "../Map/Panels/SharePanel/SharePanel.jsx";
 import RemovePanel from "../Map/Panels/RemovePanel/RemovePanel.jsx";
 import { withTranslation } from "react-i18next";
+import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {addLayer} from '../../Actions'
 import Console from 'global/console'
@@ -134,6 +135,11 @@ const mapStateToProps = ({app: {keplerGl: {map: {visState: {layers}}}}}) => {
   return {layers}
 }
 
-export default connect(mapStateToProps, {
-  addLayer,
-})(withTranslation()(measureElement(MappablePreview)));
+const mapDispatchToProps = (dispatch, ownProps) => bindActionCreators({
+  addLayer: ({item}) => (_, getState) => dispatch(addLayer({item})).then(() => {
+    item.dispatch = dispatch
+    item.getState = getState
+  })
+}, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation()(measureElement(MappablePreview)));
