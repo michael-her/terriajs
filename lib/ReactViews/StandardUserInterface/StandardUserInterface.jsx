@@ -355,8 +355,10 @@ export default function StandardUserInterfaceFactory(
         this.props.viewState.storyShown &&
         !this.props.viewState.explorerPanelIsVisible &&
         !this.props.viewState.storyBuilderShown;
-      const showSidePanel = this.props.terria.configParameters.sideEnabled;
-      
+      // michael
+      const showSidePanel = this.props.terria.configParameters.sideEnabled
+        && !this.props.terria.getUserProperty("disableWorkbench");
+
       const mapFields = mapFieldsSelector(this.props)
       const modalContainerFields = modalContainerSelector(this.props, this.root.current);
       
