@@ -344,7 +344,9 @@ const SharePanel = createReactClass({
           <div className={Styles.clipboardForCatalogShare}>
             <Clipboard
               theme="light"
-              text={this.state.shareUrl}
+              title={t("clipboard.shareURL")}
+              description={t("clipboard.shareExplanation")}
+              // text={this.state.shareUrl}
               source={this.getShareUrlInput("light")}
               id="share-url"
             />
@@ -366,7 +368,9 @@ const SharePanel = createReactClass({
           <div className={Styles.clipboardForStoryShare}>
             <Clipboard
               theme="light"
-              text={this.state.shareUrl}
+              title={t("clipboard.shareURL")}
+              description={t("clipboard.shareExplanation")}
+              // text={this.state.shareUrl}
               source={this.getShareUrlInput("light")}
               id="share-url"
             />

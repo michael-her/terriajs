@@ -59,20 +59,22 @@ class Clipboard extends React.Component {
 
   render() {
     const isLightTheme = this.props.theme === "light";
-    const { t } = this.props;
+    const { title, description, actionTitle, onAction, actionStyle, t } = this.props;
     return (
       <div className={Styles.clipboard}>
-        <div className={Styles.title}>{t("clipboard.shareURL")}</div>
-        <div className={Styles.explanation}>
-          {t("clipboard.shareExplanation")}
-        </div>
+        <div className={Styles.title}>{title}</div>
+        {description && <div className={Styles.explanation}>{description}</div>}
         <div className={Styles.clipboardBody}>
           {this.props.source}
           <button
             className={classNames(`btn-copy-${this.props.id}`, Styles.copyBtn)}
-            data-clipboard-target={`#${this.props.id}`}
+            {...{
+              style: actionStyle,
+              [onAction ? 'onClick' : 'data-clipboard-target']: onAction || `#${this.props.id}`
+            }}
+            // data-clipboard-target={`#${this.props.id}`}
           >
-            {t("clipboard.copy")}
+            {actionTitle ? actionTitle : t("clipboard.copy")}
           </button>
         </div>
         {this.state.tooltip && (
@@ -98,6 +100,11 @@ Clipboard.propTypes = {
   id: PropTypes.string.isRequired,
   source: PropTypes.object.isRequired,
   theme: PropTypes.oneOf(["dark", "light"]),
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string,
+  actionTitle: PropTypes.string,
+  actionStyle: PropTypes.object,
+  onAction: PropTypes.func,
   t: PropTypes.func.isRequired
 };
 

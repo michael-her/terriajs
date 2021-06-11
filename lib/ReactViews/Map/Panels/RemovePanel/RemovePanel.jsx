@@ -16,6 +16,9 @@ import { withTranslation, Trans } from "react-i18next";
 import Styles from "./remove-panel.scss";
 import { Trash } from "../../../../Components/common/icons";
 import { negativeBtnActBgd } from "../../../../Styles/base"
+import {connect} from 'react-redux'
+import {removeLayer} from '../../../../Actions'
+import Console from 'global/console'
 
 const RemovePanel = createReactClass({
   displayName: "RemovePanel",
@@ -25,8 +28,6 @@ const RemovePanel = createReactClass({
     terria: PropTypes.object,
     userPropWhiteList: PropTypes.array,
     advancedIsOpen: PropTypes.bool,
-    catalogShare: PropTypes.bool,
-    catalogShareWithoutText: PropTypes.bool,
     modalWidth: PropTypes.number,
     viewState: PropTypes.object.isRequired,
     userOnClick: PropTypes.func,
@@ -62,6 +63,10 @@ const RemovePanel = createReactClass({
     });
   },
 
+  handleRemoveCatalog() {
+    // this.props.removeLayer()
+  },
+
   renderWarning() {
     return (
       <div className={Styles.warning}>
@@ -86,79 +91,83 @@ const RemovePanel = createReactClass({
     );
   },
 
+  getRemoveInput(text) {
+    return (
+      <Input
+        className={Styles.shareUrlfield}
+        light
+        large
+        type="text"
+        value={text}
+        placeholder={this.state.placeholder}
+        readOnly
+        onClick={e => e.target.select()}
+        id="share-url"
+      />
+    );
+  },
+
   renderContent() {
     const { t } = this.props;
     return (
-      <Choose>
-        <When condition={this.state.shareUrl === ""}>
-          <Loader message={t("share.generatingUrl")} />
-        </When>
-        <Otherwise>
-          <div className={Styles.clipboardForCatalogShare}>
-            <Clipboard
-              theme="light"
-              text={this.state.shareUrl}
-              source={this.getShareUrlInput("light")}
-              id="share-url"
-            />
-            {this.renderWarning()}
-          </div>
-        </Otherwise>
-      </Choose>
+      <div className={Styles.clipboardForCatalogShare}>
+        <Clipboard
+          theme="light"
+          title={t("catalogItem.trash")}
+          description={t('models.catalog.removeMessage', 'This catalog will be removed permanently.')}
+          actionTitle={t('models.catalog.remove')}
+          actionStyle={{backgroundColor: negativeBtnActBgd}}
+          onAction={this.handleRemoveCatalog}
+          source={this.getRemoveInput(t('models.catalog.removeWarning'))}
+          id="share-url"
+        />
+      </div>
     );
   },
 
   render() {
     const { t } = this.props;
     const {
-      catalogShare,
-      catalogShareWithoutText,
       modalWidth
     } = this.props;
     const dropdownTheme = {
       btn: classNames({
-        [Styles.btnCatalogShare]: catalogShare,
-        [Styles.btnWithoutText]: catalogShareWithoutText
+        [Styles.btnCatalogShare]: true,
       }),
       outer: classNames(Styles.sharePanel, {
-        [Styles.catalogShare]: catalogShare,
+        [Styles.catalogShare]: true,
       }),
       inner: classNames(Styles.dropdownInner, {
-        [Styles.catalogShareInner]: catalogShare,
+        [Styles.catalogShareInner]: true,
       }),
       // icon: "trashcan"
       icon: <Trash className="trashbin" style={{fill: negativeBtnActBgd}}/>
     };
-
-    const btnText = catalogShare
-      ? t("share.btnCatalogShareText")
-      : t("share.btnMapShareText");
-    const btnTitle = catalogShare
-      ? t("share.btnCatalogShareTitle")
-      : t("share.btnMapShareTitle");
-
+    const btnText = t("share.btnCatalogShareText")
+    const btnTitle = t("share.btnCatalogShareTitle")
     return (
       <div>
         <MenuPanel
           theme={dropdownTheme}
-          // btnText={catalogShareWithoutText ? null : btnText}
           viewState={this.props.viewState}
           btnTitle={t("catalogItem.trash")}
           isOpen={this.state.isOpen}
           onOpenChanged={this.changeOpenState}
-          showDropdownAsModal={catalogShare}
+          showDropdownAsModal
           modalWidth={modalWidth}
           smallScreen={this.props.viewState.useSmallScreenInterface}
-          onDismissed={() => {
-            if (catalogShare) this.props.viewState.shareModalIsVisible = false;
-          }}
+          onDismissed={() => {this.props.viewState.shareModalIsVisible = false}}
           userOnClick={this.props.userOnClick}
         >
-          {t('models.catalog.removeMessage', 'This catalog will be removed permanently.')}
+          <If condition={this.state.isOpen}>{this.renderContent()}</If>
         </MenuPanel>
       </div>
     )
   }
 });
 
-export default withTranslation()(RemovePanel);
+const mapStateToProps = ({app: {keplerGl: {map: {visState: {layers}}}}}) => {
+  return {layers}
+}
+
+export default connect(mapStateToProps, {removeLayer})(withTranslation()(RemovePanel));

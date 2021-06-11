@@ -115,8 +115,6 @@ const MappablePreview = createReactClass({
                   viewState={this.props.viewState}
                 />
                 <RemovePanel
-                  catalogShare
-                  catalogShareWithoutText
                   modalWidth={this.props.widthFromMeasureElementHOC}
                   terria={this.props.terria}
                   viewState={this.props.viewState}
