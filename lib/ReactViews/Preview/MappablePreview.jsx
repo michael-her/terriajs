@@ -12,11 +12,6 @@ import Styles from "./mappable-preview.scss";
 import SharePanel from "../Map/Panels/SharePanel/SharePanel.jsx";
 import RemovePanel from "../Map/Panels/RemovePanel/RemovePanel.jsx";
 import { withTranslation } from "react-i18next";
-import {bindActionCreators} from 'redux'
-import {connect} from 'react-redux'
-import {addLayer} from '../../Actions'
-import Console from 'global/console'
-import knockout from 'terriajs-cesium/Source/ThirdParty/knockout'
 
 /**
  * CatalogItem preview that is mappable (as opposed to say, an analytics item that can't be displayed on a map without
@@ -32,8 +27,6 @@ const MappablePreview = createReactClass({
     viewState: PropTypes.object.isRequired,
     widthFromMeasureElementHOC: PropTypes.number,
     t: PropTypes.func.isRequired,
-
-    addLayer: PropTypes.func.isRequired,
   },
 
   toggleOnMap(event) {
@@ -49,19 +42,10 @@ const MappablePreview = createReactClass({
       !event.shiftKey &&
       !event.ctrlKey
     ) {
-      // close modal window
+      // michael: do close panel
       // 프리뷰에서 레이어를 추가할 경우 '지도로 이동'
       this.props.viewState.explorerPanelIsVisible = false;
       this.props.viewState.mobileView = null;
-
-      // michael
-      const {previewed: item, addLayer} = this.props
-      knockout.when(function() {
-        return item.isEnabled && !item.isLoading
-      }, function () {
-        // Console.log(`[MappablePreview.toggleOnMap] ${item.name} enabled`)
-        addLayer({item})
-      })
     }
   },
 
@@ -129,15 +113,4 @@ const MappablePreview = createReactClass({
   }
 });
 
-const mapStateToProps = ({app: {keplerGl: {map: {visState: {layers}}}}}) => {
-  return {layers}
-}
-
-const mapDispatchToProps = (dispatch, ownProps) => bindActionCreators({
-  addLayer: ({item}) => (_, getState) => dispatch(addLayer({item})).then(() => {
-    item.dispatch = dispatch
-    item.getState = getState
-  })
-}, dispatch)
-
-export default connect(mapStateToProps, mapDispatchToProps)(withTranslation()(measureElement(MappablePreview)));
+export default withTranslation()(measureElement(MappablePreview));

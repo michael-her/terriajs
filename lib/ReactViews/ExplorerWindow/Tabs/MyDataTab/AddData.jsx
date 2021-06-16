@@ -14,9 +14,6 @@ import addUserFiles from "../../../../Models/addUserFiles";
 import Styles from "./add-data.scss";
 import Loader from "../../../Loader";
 import { withTranslation, Trans } from "react-i18next";
-import {connect} from 'react-redux'
-import {addLayer} from '../../../../Actions'
-import Console from 'global/console'
 
 // Local and remote data have different dataType options
 const remoteDataType = getDataType().remoteDataType;
@@ -101,7 +98,6 @@ const AddData = createReactClass({
         return newItem;
       });
     }
-    const {addLayer} = this.props
     addUserCatalogMember(this.props.terria, promise).then(item => {
       if (item && !(item instanceof TerriaError)) {
         this.onFileAddFinished(item);
@@ -110,14 +106,6 @@ const AddData = createReactClass({
         isLoading: false
       });
       this.props.resetTab();
-
-      // michael
-      knockout.when(function() {
-        return item.isEnabled && !item.isLoading
-      }, function () {
-        // Console.log(`[AddData.handleUrl] ${item.name} enabled`)
-        addLayer({item})
-      })
     });
   },
 
@@ -242,10 +230,4 @@ function loadFile(viewModel) {
   );
 }
 
-const mapStateToProps = ({app: {keplerGl: {map: {visState: {layers}}}}}) => {
-  return {layers}
-}
-
-module.exports = connect(mapStateToProps, {
-  addLayer,
-})(withTranslation()(AddData))
+module.exports = withTranslation()(AddData)

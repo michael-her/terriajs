@@ -105,6 +105,7 @@ function MapNavigationFactory(
         t,
       } = this.props
       const layersToRender = layersToRenderSelector(this.props)
+      const showMapNavigation = !this.props.terria.getUserProperty("disableNavigation")
       return (
         <div
           className={classNames(Styles.mapNavigation, {
@@ -113,7 +114,7 @@ function MapNavigationFactory(
             )
           })}
         >
-          <Medium>
+          {showMapNavigation && <Medium>
             <div className={Styles.navs}>
               <If condition={this.props.terria.viewerMode !== ViewerMode.Leaflet}>
                 <div className={Styles.control}>
@@ -124,7 +125,7 @@ function MapNavigationFactory(
                 <ZoomControl terria={this.props.terria} />
               </div>
             </div>
-          </Medium>
+          </Medium>}
           <div className={Styles.controls}>
             <If condition={!this.props.terria.configParameters.disableMyLocation}>
               <div className={Styles.control}>

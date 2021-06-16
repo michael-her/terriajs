@@ -10,7 +10,7 @@ var Catalog = require("../../lib/Models/Catalog");
 var CatalogItem = require("../../lib/Models/CatalogItem");
 var createCatalogMemberFromType = require("../../lib/Models/createCatalogMemberFromType");
 var CatalogGroup = require("../../lib/Models/CatalogGroup");
-var GeoJsonCatalogItem = require("../../lib/Models/GeoJsonCatalogItem");
+import GeoJsonCatalogItem from "../../lib/Models/GeoJsonCatalogItem"
 var ImageryLayerCatalogItem = require("../../lib/Models/ImageryLayerCatalogItem");
 var WebMapServiceCatalogItem = require("../../lib/Models/WebMapServiceCatalogItem");
 

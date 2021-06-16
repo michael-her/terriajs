@@ -1,7 +1,7 @@
 "use strict";
 
 /*global require,describe,it,expect,beforeEach*/
-var GeoJsonCatalogItem = require("../../lib/Models/GeoJsonCatalogItem");
+import GeoJsonCatalogItem from "../../lib/Models/GeoJsonCatalogItem"
 var TerriaError = require("../../lib/Core/TerriaError");
 var Terria = require("../../lib/Models/Terria");
 

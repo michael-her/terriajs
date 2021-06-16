@@ -189,7 +189,7 @@ export type RemoveLayerUpdaterAction = {
   idx: number;
 };
 export function removeLayer(
-  idx: number
+  id: string
 ): Merge<RemoveLayerUpdaterAction, {type: ActionTypes.REMOVE_LAYER}>;
 
 export type RemoveLayerAllUpdaterAction = {};

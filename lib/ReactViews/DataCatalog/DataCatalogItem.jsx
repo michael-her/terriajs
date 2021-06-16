@@ -9,10 +9,6 @@ import getAncestors from "../../Models/getAncestors";
 import ObserveModelMixin from "../ObserveModelMixin";
 import raiseErrorOnRejectedPromise from "../../Models/raiseErrorOnRejectedPromise";
 import { withTranslation } from "react-i18next";
-import {connect} from 'react-redux'
-import {addLayer, removeLayer} from '../../Actions'
-import Console from 'global/console'
-import knockout from 'terriajs-cesium/Source/ThirdParty/knockout'
 
 // Individual dataset
 export const DataCatalogItem = createReactClass({
@@ -25,9 +21,6 @@ export const DataCatalogItem = createReactClass({
     removable: PropTypes.bool,
     terria: PropTypes.object,
     t: PropTypes.func.isRequired,
-
-    addLayer: PropTypes.func.isRequired,
-    removeLayer: PropTypes.func.isRequired,
   },
 
   onBtnClicked(event) {
@@ -49,7 +42,6 @@ export const DataCatalogItem = createReactClass({
   },
 
   toggleEnable(event) {
-    // Console.log('[DataCatalogItem.toggleEnable] item.toggleEnabled()')
     this.props.item.toggleEnabled();
     this.props.viewState.terria.checkNowViewingForTimeWms();
     // set preview as well
@@ -60,6 +52,7 @@ export const DataCatalogItem = createReactClass({
       !event.shiftKey &&
       !event.ctrlKey
     ) {
+      // michael: don't close panel
       // close modal window
       // {
       //   this.props.viewState.explorerPanelIsVisible = false;
@@ -69,23 +62,6 @@ export const DataCatalogItem = createReactClass({
       if (this.props.viewState.firstTimeAddingData) {
         this.props.viewState.featureInfoPanelIsVisible = true;
       }
-
-      // michael
-      const {item, addLayer} = this.props
-      knockout.when(function() {
-        return item.isEnabled && !item.isLoading
-      }, function () {
-        // Console.log(`[DataCatalogItem.toggleEnable] ${item.name} enabled`)
-        addLayer({item})
-      })
-
-    } else {
-      // TODO: review
-      const index = this.props.layers.reduce((ret, layer, index) => 
-        layer.uniqueId === this.props.item.uniqueId ? index : ret, -1)
-
-      // michael
-      this.props.removeLayer(index)
     }
   },
 
@@ -153,11 +129,4 @@ export const DataCatalogItem = createReactClass({
   }
 });
 
-const mapStateToProps = ({app: {keplerGl: {map: {visState: {layers}}}}}) => {
-  return {layers}
-}
-
-export default connect(mapStateToProps, {
-  addLayer,
-  removeLayer,
-})(withTranslation()(DataCatalogItem));
+export default withTranslation()(DataCatalogItem)

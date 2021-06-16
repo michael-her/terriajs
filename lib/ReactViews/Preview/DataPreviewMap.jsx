@@ -5,7 +5,7 @@ const ConsoleAnalytics = require("../../Core/ConsoleAnalytics");
 const defaultValue = require("terriajs-cesium/Source/Core/defaultValue")
   .default;
 const defined = require("terriajs-cesium/Source/Core/defined").default;
-const GeoJsonCatalogItem = require("../../Models/GeoJsonCatalogItem");
+import GeoJsonCatalogItem from '../../Models/GeoJsonCatalogItem'
 const ObserveModelMixin = require("../ObserveModelMixin");
 const OpenStreetMapCatalogItem = require("../../Models/OpenStreetMapCatalogItem");
 const React = require("react");
