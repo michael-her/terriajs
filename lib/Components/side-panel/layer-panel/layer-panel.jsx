@@ -23,13 +23,8 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import createReactClass from "create-react-class";
 import ObserveModelMixin from "../../../ReactViews/ObserveModelMixin";
-
 import LayerConfiguratorFactory from './layer-configurator';
 import LayerPanelHeaderFactory from './layer-panel-header';
-
-import {removeLayer} from '../../../Actions'
-// import { withTranslation } from "react-i18next";
-
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {
@@ -39,8 +34,6 @@ import {
   layerChannelChange,
   layerColorUIChange,
 } from '../../../Actions'
-import _ from 'lodash';
-import { defined } from 'terriajs-cesium';
 
 const PanelWrapper = styled.div`
   display: flex;
@@ -71,7 +64,6 @@ function LayerPanelFactory(LayerConfigurator, LayerPanelHeader) {
       item: PropTypes.object.isRequired,
       viewState: PropTypes.object.isRequired,
       setWrapperState: PropTypes.func,
-      // t: PropTypes.func.isRequired
 
       layer: PropTypes.object.isRequired,
       index: PropTypes.number.isRequired,
@@ -108,9 +100,6 @@ function LayerPanelFactory(LayerConfigurator, LayerPanelHeader) {
 
     render() {
       const {item, layer} = this.props
-      // const {layer} = this.state
-      // const { t } = this.props;
-
       return (
         <PanelWrapper
           active={item.isConfigurable}
@@ -151,16 +140,7 @@ function LayerPanelFactory(LayerConfigurator, LayerPanelHeader) {
     }
   })
 
-  // WorkbenchList 바로 아래가 sortable 래퍼 컴포넌트이어야 함.
-  // return sortable(connect(null, {
-  //   layerColorUIChange: Actions.layerColorUIChange
-  // })(LayerPanel));
-
-  // return sortable(LayerPanel);
-
-  // return LayerPanel
-
-  // 아래는 .../layer-panel/index.js 로 보내야할지 싶다.
+  // TODO: 아래 코드는 item 기반의 action creator로 변경해야됨.
 
   const layerSelector = (state, uniqueId) => {
     const idx = state.app.keplerGl.map.visState.layers.findIndex(l => l.uniqueId === uniqueId);
@@ -186,7 +166,7 @@ function LayerPanelFactory(LayerConfigurator, LayerPanelHeader) {
     layerColorUIChange: (property, props) => (_, getState) =>
       dispatch(layerColorUIChange(item.uniqueId, property, props))
       .then(() => {
-        if (defined(props.showDropdown) || defined(props.showSketcher)) return // ignore UI changes
+        if (props.showDropdown || props.showSketcher) return // ignore UI changes
         const layer = layerSelector(getState(), item.uniqueId)
         item.updateLayerVisual(layer, {[property]: layer.visual[property]})
       }),
