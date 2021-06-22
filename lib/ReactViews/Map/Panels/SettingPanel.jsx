@@ -135,6 +135,8 @@ const SettingPanel = createReactClass({
 
     viewerModes.push(ViewerMode.CesiumEllipsoid, ViewerMode.Leaflet);
 
+    const disable3D = this.props.terria.getUserProperty("disable3d");
+
     return (
       <MenuPanel
         theme={dropdownTheme}
@@ -143,26 +145,28 @@ const SettingPanel = createReactClass({
         viewState={this.props.viewState}
         smallScreen={this.props.viewState.useSmallScreenInterface}
       >
-        <div className={classNames(Styles.viewer, DropdownStyles.section)}>
-          <label className={DropdownStyles.heading}>
-            {" "}
-            {t("settingPanel.mapView")}{" "}
-          </label>
-          <ul className={Styles.viewerSelector}>
-            <For each="viewerMode" of={viewerModes}>
-              <li key={viewerMode} className={Styles.listItem}>
-                <button
-                  onClick={that.selectViewer.bind(this, viewerMode)}
-                  className={classNames(Styles.btnViewer, {
-                    [Styles.isActive]: viewerMode === currentViewer
-                  })}
-                >
-                  {viewerModeLabels[viewerMode]}
-                </button>
-              </li>
-            </For>
-          </ul>
-        </div>
+        {!disable3D &&
+          <div className={classNames(Styles.viewer, DropdownStyles.section)}>
+            <label className={DropdownStyles.heading}>
+              {" "}
+              {t("settingPanel.mapView")}{" "}
+            </label>
+            <ul className={Styles.viewerSelector}>
+              <For each="viewerMode" of={viewerModes}>
+                <li key={viewerMode} className={Styles.listItem}>
+                  <button
+                    onClick={that.selectViewer.bind(this, viewerMode)}
+                    className={classNames(Styles.btnViewer, {
+                      [Styles.isActive]: viewerMode === currentViewer
+                    })}
+                  >
+                    {viewerModeLabels[viewerMode]}
+                  </button>
+                </li>
+              </For>
+            </ul>
+          </div>
+        }
         <div className={classNames(Styles.baseMap, DropdownStyles.section)}>
           <label className={DropdownStyles.heading}>
             {" "}

@@ -7,7 +7,6 @@ import React from "react";
 import { Medium } from "../Generic/Responsive";
 import Styles from "./map-navigation.scss";
 // import ToggleSplitterTool from "./Navigation/ToggleSplitterTool";
-import MapToolButton from './Navigation/MapToolButton'
 import ViewerMode from "../../Models/ViewerMode";
 import ZoomControl from "./Navigation/ZoomControl.jsx";
 import {ActionPanel, MapLegendPanelFactory, MapControlTooltip} from "../../Components/map/map-control"
@@ -19,10 +18,9 @@ import {
 } from '../../Constants/default-settings';
 import { withTranslation } from "react-i18next";
 import {MapControlButton} from '../../Components/common/styled-components';
-import {
-  Split
-} from '../../Components/common/icons';
 import Icon from "../Icon.jsx";
+import Console from "global/console"
+import { RootContext } from "../../Components/context.js";
 
 MapNavigationFactory.deps = [
   MapLegendPanelFactory,
@@ -33,7 +31,7 @@ function MapNavigationFactory(
   const layersSelector = props => props.layers;
   const layerDataSelector = props => props.layerData;
   const mapLayersSelector = props => props.mapLayers;
-  const layerOrderSelector = props => props.layerOrder;
+  // const layerOrderSelector = props => props.layerOrder;
   // if layer.id is not in mapLayers, don't render it
   const isVisibleMapLayer = (layer, mapLayers) => !mapLayers || (mapLayers && mapLayers[layer.id])
   const layersToRenderSelector = createSelector(
@@ -87,18 +85,26 @@ function MapNavigationFactory(
       uiStateActions.toggleMapControl(panelId, index)
     },
 
+    toggleFullscreen(rootContext) {
+      Console.log("MapNavigation.toggleFullscreen.create", {context: rootContext, current: rootContext.current})
+      return e => {
+        // Console.log("MapNavigation.toggleFullscreen", {fullscreenEnabled: document.fullscreenEnabled})
+        if (!document.fullscreenElement) {
+          // Console.log("MapNavigation.toggleFullscreen", {rootElement: rootContext.current})
+          rootContext.current.requestFullscreen()
+          // document.getElementById('ui')
+        } else {
+          document.exitFullscreen()
+        }
+      }
+    },
+
     render() {
       const {
         layers,
         mapControls: {
-          visibleLayers = {},
           mapLegend = {},
-          toggle3d = {},
-          splitMap = {},
-          mapDraw = {},
-          mapLocale = {}          
         },
-        index = 0,
         scale = this.props.mapState.scale || 1,
         isExport,
         logoComponent,
@@ -106,6 +112,7 @@ function MapNavigationFactory(
       } = this.props
       const layersToRender = layersToRenderSelector(this.props)
       const showMapNavigation = !this.props.terria.getUserProperty("disableNavigation")
+      const fullScreenEnabled = this.props.terria.configParameters.fullScreenEnabled
       return (
         <div
           className={classNames(Styles.mapNavigation, {
@@ -183,8 +190,26 @@ function MapNavigationFactory(
               </div>
             </For>
             {/* michael: map legend panel from kepler.gl */}
+            <If condition={fullScreenEnabled}>
+              <div className={Styles.control}>
+                <RootContext.Consumer>
+                  {context => <MapControlButton
+                    data-tip
+                    data-for="toggle-full-screen"
+                    className="map-control-button toggle-full-screen"
+                    onClick={this.toggleFullscreen(context)}
+                    >
+                      <Icon
+                        glyph={Icon.GLYPHS.fullscreen}
+                        style={{height: 18, fill: 'currentColor'}}
+                      />
+                    <MapControlTooltip id="toggle-full-screen" message={t('mapTool.toggleFullScreen')} />
+                  </MapControlButton>}
+                </RootContext.Consumer>
+              </div>
+            </If>
             <If condition={!this.props.terria.configParameters.disableLegend}>
-              <ActionPanel className="show-legend" key={3}>
+              <ActionPanel className="show-legend">
                 <MapLegendPanel
                   layers={layers.filter(l => layersToRender[l.id])}
                   scale={scale}

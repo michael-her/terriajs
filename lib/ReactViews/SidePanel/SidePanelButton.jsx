@@ -4,14 +4,14 @@ const createReactClass = require("create-react-class");
 const PropTypes = require("prop-types");
 import ObserveModelMixin from "../ObserveModelMixin";
 import triggerResize from "../../Core/triggerResize";
-import Styles from "./full_screen_button.scss";
+import Styles from "./side_panel_button.scss";
 import classNames from "classnames";
 import Icon from "../Icon.jsx";
 import { withTranslation } from "react-i18next";
 
 // The button to make the map full screen and hide the workbench.
-const FullScreenButton = createReactClass({
-  displayName: "FullScreenButton",
+const SidePanelButton = createReactClass({
+  displayName: "SidePanelButton",
   mixins: [ObserveModelMixin],
 
   propTypes: {
@@ -104,4 +104,4 @@ const FullScreenButton = createReactClass({
     );
   }
 });
-module.exports = withTranslation()(FullScreenButton);
+module.exports = withTranslation()(SidePanelButton);

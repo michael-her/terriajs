@@ -10,7 +10,7 @@ import SearchBox from "../Search/SearchBox.jsx";
 import SidebarSearch from "../Search/SidebarSearch.jsx";
 import WorkbenchFactory from "../Workbench/Workbench.jsx";
 import Icon from "../Icon.jsx";
-import FullScreenButton from "./FullScreenButton.jsx";
+import FullScreenButton from "./SidePanelButton.jsx";
 import { removeMarker } from "../../Models/LocationMarkerUtils";
 import { withTranslation, Trans } from "react-i18next";
 import Styles from "./side-panel.scss";

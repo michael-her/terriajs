@@ -18,7 +18,7 @@ import Notification from "./../Notification/Notification.jsx";
 import ObserveModelMixin from "./../ObserveModelMixin";
 import ProgressBar from "../Map/ProgressBar.jsx";
 import processCustomElements from "./processCustomElements";
-import FullScreenButton from "./../SidePanel/FullScreenButton.jsx";
+import SidePanelButton from "../SidePanel/SidePanelButton.jsx";
 import StoryPanel from "./../Story/StoryPanel.jsx";
 import StoryBuilder from "./../Story/StoryBuilder.jsx";
 import ToolPanel from "./../ToolPanel.jsx";
@@ -431,7 +431,7 @@ export default function StandardUserInterfaceFactory(
                           .viewState.isMapFullScreen
                       })}
                     >
-                      <FullScreenButton
+                      <SidePanelButton
                         terria={this.props.terria}
                         viewState={this.props.viewState}
                         minified={false}

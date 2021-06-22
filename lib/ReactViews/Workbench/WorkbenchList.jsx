@@ -14,6 +14,7 @@ import {connect} from 'react-redux'
 import {arrayMove} from '../../Utils/data-utils'
 import {reorderLayer} from '../../Actions'
 import Console from 'global/console'
+import {SidePanelContent} from '../../Components/side-panel'
 
 // make sure the element is always visible while is being dragged
 // item being dragged is appended in body, here to reset its global style
@@ -106,6 +107,7 @@ export default function WorkbenchListFactory(
       // Console.log("[WorkbenchList.render] START", {items, layerOrder})
       return (
         <ul className={Styles.workbenchContent}>
+        {/* <SidePanelContent className="side-panel__content"> */}
           <WrappedSortableContainer
             onSortEnd={this._handleSort}
             onSortStart={this._onSortStart}
@@ -131,6 +133,7 @@ export default function WorkbenchListFactory(
               </SortableItem>
             </For>
           </WrappedSortableContainer>
+        {/* </SidePanelContent> */}
         </ul>
       )
     }
