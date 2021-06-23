@@ -206,7 +206,6 @@
     "react-shallow-testutils": "^3.0.0",
     "react-test-renderer": "^16.3.2",
     "terriajs-jasmine-ajax": "^3.2.1",
-    "terriajs-server": "^3.0.1",
     "webpack-cli": "^3.2.1",
     "webpack-dev-server": "^3.7.1"
   },
@@ -245,6 +244,7 @@
     }
   },
   "workspaces": [
-    "../cesium"
+    "../cesium",
+    "../terriajs-server"
   ]
 }
