@@ -105,7 +105,7 @@ export default function WorkbenchListFactory(
     render() {
       const {layerOrder, terria: {nowViewing: {items}}} = this.props
       // Console.log("[WorkbenchList.render] START", {items, layerOrder})
-      Console.log('[WorkbenchList.handleSort]', {isSorting: this.state.isSorting, selected: this.state.selected})
+      // Console.log('[WorkbenchList.handleSort]', {isSorting: this.state.isSorting, selected: this.state.selected})
       return (
         <ul className={Styles.workbenchContent}>
           <RootContext.Consumer>
