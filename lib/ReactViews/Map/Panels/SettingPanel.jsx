@@ -145,7 +145,7 @@ const SettingPanel = createReactClass({
         viewState={this.props.viewState}
         smallScreen={this.props.viewState.useSmallScreenInterface}
       >
-        {!disable3D &&
+        <If condition={!disable3D}>
           <div className={classNames(Styles.viewer, DropdownStyles.section)}>
             <label className={DropdownStyles.heading}>
               {" "}
@@ -166,7 +166,7 @@ const SettingPanel = createReactClass({
               </For>
             </ul>
           </div>
-        }
+        </If>
         <div className={classNames(Styles.baseMap, DropdownStyles.section)}>
           <label className={DropdownStyles.heading}>
             {" "}

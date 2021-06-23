@@ -168,7 +168,7 @@ const MyLocation = createReactClass({
     }
   },
 
-  handleCick() {
+  handleClick() {
     if (this.followMeEnabled()) {
       this.disableFollowMe();
     } else {
@@ -188,7 +188,7 @@ const MyLocation = createReactClass({
           type="button"
           className={toggleStyle}
           title={t("location.centreMap")}
-          onClick={this.handleCick}
+          onClick={this.handleClick}
         >
           <Icon glyph={Icon.GLYPHS.geolocation} />
         </button>

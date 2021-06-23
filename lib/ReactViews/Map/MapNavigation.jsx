@@ -86,13 +86,9 @@ function MapNavigationFactory(
     },
 
     toggleFullscreen(rootContext) {
-      Console.log("MapNavigation.toggleFullscreen.create", {context: rootContext, current: rootContext.current})
       return e => {
-        // Console.log("MapNavigation.toggleFullscreen", {fullscreenEnabled: document.fullscreenEnabled})
         if (!document.fullscreenElement) {
-          // Console.log("MapNavigation.toggleFullscreen", {rootElement: rootContext.current})
           rootContext.current.requestFullscreen()
-          // document.getElementById('ui')
         } else {
           document.exitFullscreen()
         }

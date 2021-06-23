@@ -34,6 +34,7 @@ import {
   layerChannelChange,
   layerColorUIChange,
 } from '../../../Actions'
+import classNames from 'classnames';
 
 const PanelWrapper = styled.div`
   display: flex;
@@ -44,6 +45,7 @@ const PanelWrapper = styled.div`
   border-radius: 1px;
   margin-bottom: 8px;
   z-index: 1000;
+  overflow: visible;
 
   &.dragging {
     cursor: move;
@@ -103,7 +105,7 @@ function LayerPanelFactory(LayerConfigurator, LayerPanelHeader) {
       return (
         <PanelWrapper
           active={item.isConfigurable}
-          className={`layer-panel ${this.props.className}`}
+          className={classNames('layer-panel', this.props.className)}
           style={this.props.style}
           onMouseDown={this.props.onMouseDown}
           onTouchStart={this.props.onTouchStart}

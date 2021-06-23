@@ -14,12 +14,12 @@ import {connect} from 'react-redux'
 import {arrayMove} from '../../Utils/data-utils'
 import {reorderLayer} from '../../Actions'
 import Console from 'global/console'
-import {SidePanelContent} from '../../Components/side-panel'
+import { RootContext } from "../../Components/context.js";
 
 // make sure the element is always visible while is being dragged
 // item being dragged is appended in body, here to reset its global style
 const SortableStyledItem = styled.div`
-  z-index: ${props => props.theme.dropdownWrapperZ + 1};
+  z-index: ${props => props.theme.dropdownWrapperZ};
 
   &.sorting {
     pointer-events: none;
@@ -71,10 +71,11 @@ export default function WorkbenchListFactory(
     }
 
     state = {
-      isSorting: false
+      isSorting: false,
+      selected: null,
     }
 
-    _handleSort = ({oldIndex, newIndex}) => {
+    _handleSort = ({oldIndex, newIndex}/* , e*/) => {
       const item = this.props.terria.nowViewing.items[oldIndex]
       let curIndex = oldIndex
 
@@ -87,12 +88,11 @@ export default function WorkbenchListFactory(
         this.props.terria.nowViewing.raise(item);
         --curIndex;
       }
-      this.setState({isSorting: false})
-
+      this.setState({isSorting: false, selected: null})
       this.props.reorderLayer(arrayMove(this.props.layerOrder, oldIndex, newIndex));
     }
 
-    _onSortStart = () => this.setState({isSorting: true})
+    _onSortStart = ({node, index}/* , e*/) => this.setState({isSorting: true, selected: index})
 
     _updateBeforeSortStart = ({index}) => {
       const item = this.props.terria.nowViewing.items[index]
@@ -105,35 +105,40 @@ export default function WorkbenchListFactory(
     render() {
       const {layerOrder, terria: {nowViewing: {items}}} = this.props
       // Console.log("[WorkbenchList.render] START", {items, layerOrder})
+      Console.log('[WorkbenchList.handleSort]', {isSorting: this.state.isSorting, selected: this.state.selected})
       return (
         <ul className={Styles.workbenchContent}>
-        {/* <SidePanelContent className="side-panel__content"> */}
-          <WrappedSortableContainer
-            onSortEnd={this._handleSort}
-            onSortStart={this._onSortStart}
-            updateBeforeSortStart={this._updateBeforeSortStart}
-            lockAxis="y"
-            helperClass="sorting-layers"
-            useDragHandle
-          >
-            <For each="order" index="idx" of={layerOrder}>
-              <SortableItem
-                key={`layer-${order}`}
-                index={idx}
-                isSorting={this.state.isSorting}
+          <RootContext.Consumer>
+            {context =>
+              <WrappedSortableContainer
+                onSortEnd={this._handleSort}
+                onSortStart={this._onSortStart}
+                updateBeforeSortStart={this._updateBeforeSortStart}
+                lockAxis="y"
+                helperClass="sorting-layers"
+                helperContainer={context.current}
+                useDragHandle
               >
-                <WorkbenchItem
-                  index={order}
-                  item={items[idx]}
-                  layer={this.props.layers[order]}
-                  sortData={items[idx]}
-                  key={items[idx].uniqueId}
-                  viewState={this.props.viewState}
-                />
-              </SortableItem>
-            </For>
-          </WrappedSortableContainer>
-        {/* </SidePanelContent> */}
+                <For each="order" index="idx" of={layerOrder}>
+                  <SortableItem
+                    key={`layer-${order}`}
+                    index={idx}
+                    isSorting={this.state.isSorting}
+                  >
+                    <WorkbenchItem
+                      index={order}
+                      className={this.state.isSorting && this.state.selected === idx ? 'dragging' : undefined}
+                      item={items[idx]}
+                      layer={this.props.layers[order]}
+                      sortData={items[idx]}
+                      key={items[idx].uniqueId}
+                      viewState={this.props.viewState}
+                    />
+                  </SortableItem>
+                </For>
+              </WrappedSortableContainer>
+            }
+          </RootContext.Consumer>
         </ul>
       )
     }
