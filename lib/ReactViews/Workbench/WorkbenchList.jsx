@@ -9,7 +9,6 @@ import Styles from "./workbench-list.scss";
 // import "!!style-loader!css-loader?sourceMap!./sortable.css";
 import classNames from "classnames";
 import styled from 'styled-components';
-
 import {connect} from 'react-redux'
 import {arrayMove} from '../../Utils/data-utils'
 import {reorderLayer} from '../../Actions'
@@ -80,16 +79,20 @@ export default function WorkbenchListFactory(
       let curIndex = oldIndex
 
       while (curIndex < newIndex) {
-        this.props.terria.nowViewing.lower(item);
-        ++curIndex;
+        if (this.props.terria.nowViewing.lower(item)) {
+          ++curIndex;
+        } else break
       }
   
       while (curIndex > newIndex) {
-        this.props.terria.nowViewing.raise(item);
-        --curIndex;
+        if (this.props.terria.nowViewing.raise(item)) {
+          --curIndex;
+        } else break
       }
       this.setState({isSorting: false, selected: null})
-      this.props.reorderLayer(arrayMove(this.props.layerOrder, oldIndex, newIndex));
+      if (oldIndex !== curIndex) {
+        this.props.reorderLayer(arrayMove(this.props.layerOrder, oldIndex, curIndex));
+      }
     }
 
     _onSortStart = ({node, index}/* , e*/) => this.setState({isSorting: true, selected: index})
