@@ -184,7 +184,7 @@
     "fs-extra": "^7.0.1",
     "generate-terriajs-schema": "^1.5.0",
     "glob-all": "^3.0.1",
-    "husky": "^2.2.0",
+    "husky": "^6.0.0",
     "jasmine-core": "^2.9.1",
     "jsdoc": "^3.5.0",
     "karma": "^4.0.0",
@@ -237,7 +237,8 @@
     "hot": "webpack-dev-server --inline --config buildprocess/webpack.config.hot.js --hot --host 0.0.0.0",
     "prettier": "prettier --write \"**/*\"",
     "pretty-quick": "pretty-quick",
-    "prettier-check": "prettier --check \"**/*\""
+    "prettier-check": "prettier --check \"**/*\"",
+    "prepare": "husky install"
   },
   "husky": {
     "hooks": {
