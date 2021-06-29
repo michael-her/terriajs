@@ -91,7 +91,9 @@ export default function WorkbenchListFactory(
       }
       this.setState({isSorting: false, selected: null})
       if (oldIndex !== curIndex) {
-        this.props.reorderLayer(arrayMove(this.props.layerOrder, oldIndex, curIndex));
+        const layerOrder = arrayMove(this.props.layerOrder, oldIndex, curIndex)
+        // Console.log('[WorkbenchList._handleSort]', {from: this.props.layerOrder, to: layerOrder})
+        this.props.reorderLayer(layerOrder);
       }
     }
 
