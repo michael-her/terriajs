@@ -33,6 +33,7 @@
     margin: 7px 0;
     // michael
     //margin-right: 16px;
+    margin-right: 34px;
     height: auto;
   }
   margin: 4px 8px;
@@ -45,9 +46,9 @@
   display: flex;
   flex-direction: column;
   // michael
-  //align-items: flex-end;
+  align-items: flex-end;
   // ley
-  align-items: center;
+  //align-items: center;
 }
 
 .controls {
@@ -56,9 +57,11 @@
     flex-direction: column;
     // michael
     //margin-right: 12px; // 0;
+    margin-right: 25px; // 0;
   }
   flex-direction: row;
   // michael
-  align-items: center;
+  align-items: flex-end;
+  //align-items: center;
   margin-top: 4px;
 }
