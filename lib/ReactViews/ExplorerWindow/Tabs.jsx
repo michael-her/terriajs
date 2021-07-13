@@ -61,7 +61,7 @@ const Tabs = createReactClass({
               />
             )
           })),
-        [myDataTab]
+        // [myDataTab]
       );
     } else {
       return [
@@ -78,7 +78,7 @@ const Tabs = createReactClass({
             />
           )
         },
-        myDataTab
+        // myDataTab
       ];
     }
   },

@@ -22,10 +22,13 @@
     fill: $dark;
   }
 }
+
 .innerRing {
   @include vertical-align();
-  height: $compass-width - $ring-width -20px;
-  width: $compass-width - $ring-width -20px;
+  //height: $compass-width - $ring-width -20px;
+  //width: $compass-width - $ring-width -20px;
+  height: $compass-width - $ring-width -35px;
+  width: $compass-width - $ring-width -35px;
   border-radius: 50%;
   display: block;
   margin: 0 auto;
@@ -33,6 +36,7 @@
   box-sizing: border-box;
   background: #ffffff;
 }
+
 .rotationMarker {
   background-image: url("../../../../wwwroot/images/compass-rotation-marker.svg");
   height: $compass-width - 4px;
@@ -59,3 +63,5 @@
     height: 100%;
   }
 }
+
+

@@ -152,7 +152,7 @@ function MapNavigationFactory(
                 >
                   <Icon
                     glyph={Icon.GLYPHS[this.props.terria.showSplitter ? 'splitterOn' : 'splitterOff']}
-                    style={{height: 18, fill: 'currentColor'}}
+                    style={{height: 20, fill: 'currentColor'}}
                   />
                   <MapControlTooltip id="show-splitter" message={t('splitterTool.toggleSplitterTool')} />
                 </MapControlButton>
@@ -217,7 +217,7 @@ function MapNavigationFactory(
                   logoComponent={logoComponent}
                 />
               </ActionPanel>
-            </If>            
+            </If>
           </div>
         </div>
       );

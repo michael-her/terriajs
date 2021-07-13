@@ -9,15 +9,24 @@
   text-align: center;
   box-sizing: border-box;
   line-height: 1.2rem;
-
+  //default
+  //width: 24px;
+  //height: 60px;
+  //
+  //svg {
+  //  height: 10px;
+  //  width: 10px;
+  //  fill: #fff;
+  //}
   width: 24px;
-  height: 60px;
+  height: 74px;
 
   svg {
-    height: 10px;
-    width: 10px;
+    height: 22px;
+    width: 14px;
     fill: #fff;
   }
+
 
   @media (min-width: $sm) {
     display: inline-block;
