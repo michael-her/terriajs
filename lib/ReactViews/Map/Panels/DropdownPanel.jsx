@@ -93,6 +93,7 @@ const DropdownPanel = createReactClass({
           className={classNames(Styles.button, this.props.theme.btn)}
           title={this.props.btnTitle}
           ref={element => (this.buttonElement = element)}
+          style={{right: '12px'}}
         >
           <If condition={iconGlyph}>
             <Icon glyph={iconGlyph} />
