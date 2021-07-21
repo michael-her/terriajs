@@ -1,4 +1,5 @@
 "use strict";
+
 const React = require("react");
 const PropTypes = require("prop-types");
 import createReactClass from "create-react-class";
@@ -10,10 +11,14 @@ const Ellipsoid = require("terriajs-cesium/Source/Core/Ellipsoid").default;
 const Tween = require("terriajs-cesium/Source/ThirdParty/Tween").default;
 const CesiumMath = require("terriajs-cesium/Source/Core/Math").default;
 const Cartesian3 = require("terriajs-cesium/Source/Core/Cartesian3").default;
+import Cartesian2 from "terriajs-cesium/Source/Core/Cartesian2";
+
 import Icon from "../../Icon.jsx";
 import Styles from "./zoom_control.scss";
 import { withTranslation } from "react-i18next";
+import EllipsoidGeodesic from "terriajs-cesium/Source/Core/EllipsoidGeodesic";
 
+const geodesic = new EllipsoidGeodesic();
 // Map zoom control
 const ZoomControl = createReactClass({
   propTypes: {
@@ -87,16 +92,53 @@ const ZoomControl = createReactClass({
     return IntersectionTests.grazingAltitudeLocation(ray, Ellipsoid.WGS84);
   },
 
+  getDistanceCesium(scene) {
+    // TODO 이부분은 DistanceLegend.jsx 의  updateDistanceLegendCesium 함수를 참고한 것. 수정필요?
+    const width = scene.canvas.clientWidth;
+    const height = scene.canvas.clientHeight;
+
+    const left = scene.camera.getPickRay(
+      new Cartesian2((width / 2) | 0, height - 1)
+    );
+    const right = scene.camera.getPickRay(
+      new Cartesian2((1 + width / 2) | 0, height - 1)
+    );
+
+    const globe = scene.globe;
+    const leftPosition = globe.pick(left, scene);
+    const rightPosition = globe.pick(right, scene);
+
+    if (!defined(leftPosition) || !defined(rightPosition)) {
+      return;
+    }
+
+    const leftCartographic = globe.ellipsoid.cartesianToCartographic(
+      leftPosition
+    );
+    const rightCartographic = globe.ellipsoid.cartesianToCartographic(
+      rightPosition
+    );
+
+    geodesic.setEndPoints(leftCartographic, rightCartographic);
+    const pixelDistance = geodesic.surfaceDistance;
+
+    // Find the first distance that makes the scale bar less than 100 pixels.
+    const maxBarWidth = 100;
+
+    console.log(pixelDistance,20 / pixelDistance < maxBarWidth)
+    return 20 / pixelDistance < maxBarWidth
+  },
+
   zoomIn() {
     const cartesian3Scratch = new Cartesian3();
     this.props.terria.analytics.logEvent("navigation", "click", "zoomIn");
-
     if (defined(this.props.terria.leaflet)) {
       this.props.terria.leaflet.map.zoomIn(1);
     }
 
     if (defined(this.props.terria.cesium)) {
       const scene = this.props.terria.cesium.scene;
+      if(!this.getDistanceCesium(scene)) return
       const camera = scene.camera;
       const focus = this.getCameraFocus(scene);
       const direction = Cartesian3.subtract(
