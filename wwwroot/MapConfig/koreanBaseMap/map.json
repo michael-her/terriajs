@@ -1,0 +1,33 @@
+{
+  "vworldStreet": {
+    "url": "https://xdworld.vworld.kr/2d/Base/service",
+    "opacity": 1.0,
+    "isRequiredForRendering": true,
+    "name": "브이월드 지도",
+    "allowFeaturePicking": false,
+    "maximumLevel": 19
+  },
+  "vworldSatellite": {
+    "url": "https://xdworld.vworld.kr/2d/Satellite/service",
+    "opacity": 1.0,
+    "isRequiredForRendering": true,
+    "name": "브이월드 위성",
+    "allowFeaturePicking": false,
+    "maximumLevel": 19,
+    "fileExtension": "jpeg"
+  },
+  "naverStreet": {
+    "url": "https://map.pstatic.net/nrb/styles/basic/1626941278",
+    "opacity": 1.0,
+    "isRequiredForRendering": true,
+    "name": "네이버 지도",
+    "allowFeaturePicking": false
+  },
+  "naverSatellite": {
+    "url": "https://map.pstatic.net/nrb/styles/satellite/1626941278",
+    "opacity": 1.0,
+    "isRequiredForRendering": true,
+    "name": "네이버 위성",
+    "allowFeaturePicking": false
+  }
+}

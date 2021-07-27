@@ -58,7 +58,7 @@ export const DataCatalogItem = createReactClass({
       //   this.props.viewState.explorerPanelIsVisible = false;
       //   this.props.viewState.mobileView = null;
       // }
-      
+
       if (this.props.viewState.firstTimeAddingData) {
         this.props.viewState.featureInfoPanelIsVisible = true;
       }
@@ -76,11 +76,14 @@ export const DataCatalogItem = createReactClass({
 
   isSelected() {
     return addedByUser(this.props.item)
-      ? this.props.viewState.userDataPreviewedItem === this.props.item
+    ? this.props.viewState.userDataPreviewedItem === this.props.item
       : this.props.viewState.previewedItem === this.props.item;
   },
 
   render() {
+    const searchState = this.props.viewState.searchState;
+    const isSearching = searchState.catalogSearchText.length > 0;
+
     const item = this.props.item;
     const { t } = this.props;
     const STATE_TO_TITLE = {
@@ -89,28 +92,36 @@ export const DataCatalogItem = createReactClass({
       add: t("catalogItem.add"),
       trash: t("catalogItem.trash")
     };
+    // TODO 이 부분은 검증을 받아야 한다. Searching 할 때, 그룹명도 표기하고 싶다고 해서 임시 방편으로 추가함.
     return (
-      <CatalogItem
-        onTextClick={this.setPreviewedItem}
-        selected={this.isSelected()}
-        text={item.nameInCatalog}
-        title={getAncestors(item)
-          .map(member => member.nameInCatalog)
-          .join(" → ")}
-        btnState={this.getItemState()}
-        onBtnClick={this.onBtnClicked}
-        // All things are "removable" - meaning add and remove from workbench,
-        //    but only user data is "trashable"
-        trashable={this.props.removable}
-        onTrashClick={
-          this.props.removable
-            ? () => {
-                this.onTrashClicked();
+      <>
+        {
+          isSearching && !item.nameInCatalog.includes(searchState.catalogSearchText) ?
+            <></>
+            :
+            <CatalogItem
+              onTextClick={this.setPreviewedItem}
+              selected={this.isSelected()}
+              text={item.nameInCatalog}
+              title={getAncestors(item)
+                .map(member => member.nameInCatalog)
+                .join(" → ")}
+              btnState={this.getItemState()}
+              onBtnClick={this.onBtnClicked}
+              // All things are "removable" - meaning add and remove from workbench,
+              //    but only user data is "trashable"
+              trashable={this.props.removable}
+              onTrashClick={
+                this.props.removable
+                  ? () => {
+                    this.onTrashClicked();
+                  }
+                  : undefined
               }
-            : undefined
+              titleOverrides={STATE_TO_TITLE}
+            />
         }
-        titleOverrides={STATE_TO_TITLE}
-      />
+      </>
     );
   },
 
