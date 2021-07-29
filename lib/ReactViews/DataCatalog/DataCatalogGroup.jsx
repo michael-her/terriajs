@@ -90,6 +90,7 @@ const DataCatalogGroup = createReactClass({
   render() {
     const group = this.props.group;
     const { t } = this.props;
+
     return (
       <CatalogGroup
         text={this.getNameOrPrettyUrl()}
