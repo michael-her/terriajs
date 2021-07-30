@@ -91,13 +91,13 @@ const MappablePreview = createReactClass({
               }
             >
               <div className={Styles.shareLinkWrapper}>
-                <SharePanel
-                  catalogShare
-                  catalogShareWithoutText
-                  modalWidth={this.props.widthFromMeasureElementHOC}
-                  terria={this.props.terria}
-                  viewState={this.props.viewState}
-                />
+                {/* <SharePanel*/}
+                {/*  catalogShare*/}
+                {/*  catalogShareWithoutText*/}
+                {/*  modalWidth={this.props.widthFromMeasureElementHOC}*/}
+                {/*  terria={this.props.terria}*/}
+                {/*  viewState={this.props.viewState}*/}
+                {/* />*/}
                 <RemovePanel
                   modalWidth={this.props.widthFromMeasureElementHOC}
                   terria={this.props.terria}

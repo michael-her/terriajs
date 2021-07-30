@@ -44,12 +44,12 @@ const GroupPreview = createReactClass({
         >
           <h3>{this.props.previewed.name}</h3>
           <div className={Styles.shareLinkWrapper}>
-            <SharePanel
-              catalogShare
-              modalWidth={this.props.widthFromMeasureElementHOC}
-              terria={this.props.terria}
-              viewState={this.props.viewState}
-            />
+          {/*  <SharePanel*/}
+          {/*    catalogShare*/}
+          {/*    modalWidth={this.props.widthFromMeasureElementHOC}*/}
+          {/*    terria={this.props.terria}*/}
+          {/*    viewState={this.props.viewState}*/}
+          {/*  />*/}
           </div>
         </div>
         <div className={Styles.previewedInfo}>

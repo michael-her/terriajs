@@ -1,0 +1,293 @@
+{
+  "statusCode": 200,
+  "data": {
+    "columnsWithSchema": [
+      {
+        "name": "No",
+        "type": "int"
+      },
+      {
+        "name": "shape",
+        "type": "string"
+      },
+      {
+        "name": "운행속도",
+        "type": "int"
+      }
+    ],
+    "rows": [
+      {
+        "No": "1",
+        "shape": "wQC8qpp59PnjIw==",
+        "운행속도": "50"
+      },
+      {
+        "No": "2",
+        "shape": "wQCEqJp5gO7jIw==",
+        "운행속도": "69"
+      },
+      {
+        "No": "3",
+        "shape": "wQDE3Jl5pPnYIw==",
+        "운행속도": "103"
+      },
+      {
+        "No": "4",
+        "shape": "wQDurpl5wIzZIw==",
+        "운행속도": "104"
+      },
+      {
+        "No": "5",
+        "shape": "wQCcgpl5yqLZIw==",
+        "운행속도": "106"
+      },
+      {
+        "No": "6",
+        "shape": "wQDU25h5lL/ZIw==",
+        "운행속도": "106"
+      },
+      {
+        "No": "7",
+        "shape": "wQDwvJh5wOHZIw==",
+        "운행속도": "105"
+      },
+      {
+        "No": "8",
+        "shape": "wQD4p5h5zobaIw==",
+        "운행속도": "103"
+      },
+      {
+        "No": "9",
+        "shape": "wQDClph5sKzaIw==",
+        "운행속도": "110"
+      },
+      {
+        "No": "10",
+        "shape": "wQDIj5h5urvaIw==",
+        "운행속도": "106"
+      },
+      {
+        "No": "11",
+        "shape": "wQDqs5h5orDbIw==",
+        "운행속도": "107"
+      },
+      {
+        "No": "12",
+        "shape": "wQDavZh54NfbIw==",
+        "운행속도": "93"
+      },
+      {
+        "No": "13",
+        "shape": "wQCSuph5jPrbIw==",
+        "운행속도": "86"
+      },
+      {
+        "No": "14",
+        "shape": "wQDiq5h5tJncIw==",
+        "운행속도": "82"
+      },
+      {
+        "No": "15",
+        "shape": "wQCemph52LfcIw==",
+        "운행속도": "86"
+      },
+      {
+        "No": "16",
+        "shape": "wQDCiZh5utXcIw==",
+        "운행속도": "78"
+      },
+      {
+        "No": "17",
+        "shape": "wQDW9Zd57u/cIw==",
+        "운행속도": "76"
+      },
+      {
+        "No": "18",
+        "shape": "wQCi3pd5uIjdIw==",
+        "운행속도": "82"
+      },
+      {
+        "No": "19",
+        "shape": "wQCUw5d5jqXdIw==",
+        "운행속도": "99"
+      },
+      {
+        "No": "20",
+        "shape": "wQCUpZd5qsPdIw==",
+        "운행속도": "91"
+      },
+      {
+        "No": "21",
+        "shape": "wQDehpd5ruDdIw==",
+        "운행속도": "91"
+      },
+      {
+        "No": "22",
+        "shape": "wQDK+pZ5/OvdIw==",
+        "운행속도": "93"
+      },
+      {
+        "No": "23",
+        "shape": "wQCKnZZ58sreIw==",
+        "운행속도": "92"
+      },
+      {
+        "No": "24",
+        "shape": "wQCqgZZ54ubeIw==",
+        "운행속도": "68"
+      },
+      {
+        "No": "25",
+        "shape": "wQDk7pV59vneIw==",
+        "운행속도": "68"
+      },
+      {
+        "No": "26",
+        "shape": "wQDY4ZV5yoffIw==",
+        "운행속도": "80"
+      },
+      {
+        "No": "27",
+        "shape": "wQCQ2JV5xpHfIw==",
+        "운행속도": "77"
+      },
+      {
+        "No": "28",
+        "shape": "wQCCupV5yrTfIw==",
+        "운행속도": "63"
+      },
+      {
+        "No": "29",
+        "shape": "wQD2rJV5sMzfIw==",
+        "운행속도": "70"
+      },
+      {
+        "No": "30",
+        "shape": "wQCSn5V5hObfIw==",
+        "운행속도": "70"
+      },
+      {
+        "No": "31",
+        "shape": "wQC0kJV5hIHgIw==",
+        "운행속도": "68"
+      },
+      {
+        "No": "32",
+        "shape": "wQCQgJV56qDgIw==",
+        "운행속도": "53"
+      },
+      {
+        "No": "33",
+        "shape": "wQCg9ZR59LfgIw==",
+        "운행속도": "75"
+      },
+      {
+        "No": "34",
+        "shape": "wQC28JR51MLgIw==",
+        "운행속도": "80"
+      },
+      {
+        "No": "35",
+        "shape": "wQCc6ZR55tLgIw==",
+        "운행속도": "72"
+      },
+      {
+        "No": "36",
+        "shape": "wQDS45R56tzgIw==",
+        "운행속도": "60"
+      },
+      {
+        "No": "37",
+        "shape": "wQDE45R58vvgIw==",
+        "운행속도": "57"
+      },
+      {
+        "No": "38",
+        "shape": "wQCO85R52oPhIw==",
+        "운행속도": "68"
+      },
+      {
+        "No": "39",
+        "shape": "wQCM/JR5rIjhIw==",
+        "운행속도": "71"
+      },
+      {
+        "No": "40",
+        "shape": "wQCq/5R52onhIw==",
+        "운행속도": "70"
+      },
+      {
+        "No": "41",
+        "shape": "wQDwsJZ5ysThIw==",
+        "운행속도": "50"
+      },
+      {
+        "No": "42",
+        "shape": "wQCIzJZ52szhIw==",
+        "운행속도": "62"
+      },
+      {
+        "No": "43",
+        "shape": "wQCU6JZ5jtXhIw==",
+        "운행속도": "60"
+      },
+      {
+        "No": "44",
+        "shape": "wQCmjZd54PThIw==",
+        "운행속도": "62"
+      },
+      {
+        "No": "45",
+        "shape": "wQDy/5Z5qI3iIw==",
+        "운행속도": "74"
+      },
+      {
+        "No": "46",
+        "shape": "wQDE6JZ5yrXiIw==",
+        "운행속도": "50"
+      },
+      {
+        "No": "47",
+        "shape": "wQDA2ZZ5gNPiIw==",
+        "운행속도": "53"
+      },
+      {
+        "No": "48",
+        "shape": "wQD+3JZ5ssziIw==",
+        "운행속도": "57"
+      },
+      {
+        "No": "49",
+        "shape": "wQCG+JZ5/pfiIw==",
+        "운행속도": "55"
+      },
+      {
+        "No": "50",
+        "shape": "wQCsg5d55IHiIw==",
+        "운행속도": "62"
+      },
+      {
+        "No": "51",
+        "shape": "wQC+j5d53unhIw==",
+        "운행속도": "66"
+      },
+      {
+        "No": "52",
+        "shape": "wQCqnJd5pNHhIw==",
+        "운행속도": "63"
+      },
+      {
+        "No": "53",
+        "shape": "wQDKp5d56rvhIw==",
+        "운행속도": "54"
+      },
+      {
+        "No": "54",
+        "shape": "wQDSxJd5jInhIw==",
+        "운행속도": "54"
+      }
+    ]
+  },
+  "totalCols": 2,
+  "url": "jdbc:hive2://192.168.0.211:10090/default?livy.server.sessionId=67"
+}
