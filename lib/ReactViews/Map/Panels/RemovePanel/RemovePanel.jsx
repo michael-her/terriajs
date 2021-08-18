@@ -64,6 +64,7 @@ const RemovePanel = createReactClass({
   },
 
   handleRemoveCatalog() {
+    console.log('remove??')
     // this.props.removeLayer()
   },
 

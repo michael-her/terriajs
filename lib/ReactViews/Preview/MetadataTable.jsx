@@ -11,6 +11,7 @@ import get from 'lodash.get'
 /**
  * Displays a table showing the name and values of items in a MetadataItem.
  */
+
 const MetadataTable = createReactClass({
   displayName: "MetadataTable",
   mixins: [ObserveModelMixin],
@@ -19,10 +20,11 @@ const MetadataTable = createReactClass({
     metadataItem: PropTypes.object.isRequired, // A MetadataItem instance.
     itemsPath: PropTypes.string,
     itemsKey: PropTypes.string,
+    metaDataSchema: PropTypes.any
   },
 
   render() {
-    const {metadataItem, itemsPath, itemsKey} = this.props;
+    const {metadataItem, itemsPath, itemsKey, metaDataSchema} = this.props;
     const root = itemsPath ? get(metadataItem, itemsPath, undefined) : metadataItem
     const items = itemsKey ? root[itemsKey] : root.items
     return (
@@ -30,31 +32,64 @@ const MetadataTable = createReactClass({
         <If condition={items.length > 0}>
           <table>
             <tbody>
-              <For each="item" index="i" of={items}>
-                <tr key={i}>
-                  <th className={Styles.name}>{item.name}</th>
-                  <td className={Styles.value}>
-                    <Choose>
-                      <When condition={item.items && item.items.length > 0}>
-                        <MetadataTable metadataItem={item} />
-                      </When>
-                      <When condition={Array.isArray(item.value)}>
-                        <If
-                          condition={
-                            item.value.length > 0 && isJoinable(item.value)
-                          }
-                        >
-                          {item.value.join(", ")}
-                        </If>
-                      </When>
-                      <When condition={item.localType}>
-                        {item.localType}
-                      </When>
-                      <Otherwise>{item.value}</Otherwise>
-                    </Choose>
-                  </td>
-                </tr>
-              </For>
+            <Choose>
+              <When condition={metaDataSchema}>
+                <For each="item" index="i" of={items}>
+                  <If condition={metaDataSchema[item.name] || metaDataSchema[0]}>
+                    <tr key={i}>
+                      <th className={Styles.name}>{item.name}</th>
+                      <td className={Styles.value}>
+                        <Choose>
+                          <When condition={item.items && item.items.length > 0}>
+                            <MetadataTable metadataItem={item} metaDataSchema={metaDataSchema[item.name] || metaDataSchema[0]}/>
+                          </When>
+                          <When condition={Array.isArray(item.value)}>
+                            <If
+                              condition={
+                                item.value.length > 0 && isJoinable(item.value)
+                              }
+                            >
+                              {item.value.join(", ")}
+                            </If>
+                          </When>
+                          <When condition={item.localType}>
+                            {item.localType}
+                          </When>
+                          <Otherwise>{item.value}</Otherwise>
+                        </Choose>
+                      </td>
+                    </tr>
+                  </If>
+                </For>
+              </When>
+              <Otherwise>
+                <For each="item" index="i" of={items}>
+                  <tr key={i}>
+                    <th className={Styles.name}>{item.name}</th>
+                    <td className={Styles.value}>
+                      <Choose>
+                        <When condition={item.items && item.items.length > 0}>
+                          <MetadataTable metadataItem={item}/>
+                        </When>
+                        <When condition={Array.isArray(item.value)}>
+                          <If
+                            condition={
+                              item.value.length > 0 && isJoinable(item.value)
+                            }
+                          >
+                            {item.value.join(", ")}
+                          </If>
+                        </When>
+                        <When condition={item.localType}>
+                          {item.localType}
+                        </When>
+                        <Otherwise>{item.value}</Otherwise>
+                      </Choose>
+                    </td>
+                  </tr>
+                </For>
+              </Otherwise>
+            </Choose>
             </tbody>
           </table>
         </If>

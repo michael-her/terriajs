@@ -83,7 +83,7 @@ const MappablePreview = createReactClass({
             className={Styles.titleAndShareWrapper}
             ref={component => (this.refToMeasure = component)}
           >
-            <h3 className={Styles.h3}>{catalogItem.name}</h3>
+            <h3 className={Styles.h3}>{catalogItem.title || catalogItem.name}</h3>
             <If
               condition={
                 catalogItem.dataUrlType !== "local" &&
@@ -98,11 +98,11 @@ const MappablePreview = createReactClass({
                 {/*  terria={this.props.terria}*/}
                 {/*  viewState={this.props.viewState}*/}
                 {/* />*/}
-                <RemovePanel
+                 <RemovePanel
                   modalWidth={this.props.widthFromMeasureElementHOC}
                   terria={this.props.terria}
                   viewState={this.props.viewState}
-                />
+                 />
               </div>
             </If>
           </div>
