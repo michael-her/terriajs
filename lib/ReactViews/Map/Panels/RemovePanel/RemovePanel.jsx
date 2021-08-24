@@ -64,8 +64,15 @@ const RemovePanel = createReactClass({
   },
 
   handleRemoveCatalog() {
-    console.log('remove??')
-    // this.props.removeLayer()
+    const catalogItem = this.props.viewState.previewedItem
+    if(defined(catalogItem._remove)) {
+      catalogItem._remove()
+    }
+    this.props.viewState.viewCatalogMember(catalogItem.parent)
+    catalogItem.parent.items = catalogItem.parent.items.filter(c => catalogItem.nameInCatalog !== c.nameInCatalog)
+
+    // api call...
+    // console.log(catalogItem.parent, 'parent , group')
   },
 
   renderWarning() {
