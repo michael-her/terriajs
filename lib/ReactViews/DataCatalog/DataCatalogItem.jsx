@@ -102,7 +102,8 @@ export const DataCatalogItem = createReactClass({
             <CatalogItem
               onTextClick={this.setPreviewedItem}
               selected={this.isSelected()}
-              text={item.nameInCatalog}
+              // text={item.nameInCatalog}
+              text={item.title || item.nameInCatalog}
               title={getAncestors(item)
                 .map(member => member.nameInCatalog)
                 .join(" → ")}

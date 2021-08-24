@@ -37,8 +37,10 @@ const MetadataTable = createReactClass({
                 <For each="item" index="i" of={items}>
                   <If condition={metaDataSchema[item.name] || metaDataSchema[0]}>
                     <tr key={i}>
-                      <th className={Styles.name}>{item.name}</th>
-                      <td className={Styles.value}>
+                       <If condition={item.name !== 'layer' && item.name !=='spatialInfo'}>
+                        <th className={Styles.name}>{item.name}</th>
+                       </If>
+                      <td className={Styles.value} colSpan={2}>
                         <Choose>
                           <When condition={item.items && item.items.length > 0}>
                             <MetadataTable metadataItem={item} metaDataSchema={metaDataSchema[item.name] || metaDataSchema[0]}/>
