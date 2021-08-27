@@ -15,8 +15,13 @@ const Terria = require("../../Models/Terria");
 const TerriaViewer = require("../../ViewModels/TerriaViewer.js");
 const ViewerMode = require("../../Models/ViewerMode");
 const when = require("terriajs-cesium/Source/ThirdParty/when").default;
+const proj4 = require("proj4").default;
+const proj4definitions = require("../../Map/Proj4Definitions");
+const zoomRectangleFromPoint = require("../../Map/zoomRectangleFromPoint");
+
 import classNames from "classnames";
-import { withTranslation } from "react-i18next";
+import {withTranslation} from "react-i18next";
+import {Rectangle} from "terriajs-cesium";
 
 import Styles from "./data-preview-map.scss";
 
@@ -84,7 +89,13 @@ const DataPreviewMap = createReactClass({
       "© OpenStreetMap contributors ODbL, © CARTO CC-BY 3.0";
     positron.opacity = 1.0;
     positron.subdomains = ["a", "b", "c", "d"];
-    this.terriaPreview.baseMap = positron;
+
+    // const vworldStreet = new OpenStreetMapCatalogItem(this.terriaPreview)
+    // vworldStreet.attribution =
+    //   "© OpenStreetMap contributors ODbL, © CARTO CC-BY 3.0";
+    // Object.assign(vworldStreet, koreanBaseMap['vworldStreet']);
+    //
+    // this.terriaPreview.baseMap = vworldStreet;
 
     this.isZoomedToExtent = false;
     this.lastPreviewedCatalogItem = undefined;
@@ -177,6 +188,26 @@ const DataPreviewMap = createReactClass({
               }
 
               this._errorPreviewingCatalogItem = false;
+
+              /*
+                _previewInfo가 있으면 홈 뷰에서 로드할 필요가 없다. layerMetadata 에서 Envelop 값으로 중점을 구한 뒤,
+                 중점을 기준으로 Rectangle 을 만듬. 그 후 zoomTo
+                 rectangle 을 만든 이유. zoomTo Method 가 param 으로 Rectangle 을 필요로 함
+                 zoomRectangleFromPoint Method 의 boundingBoxSize 의 의미를 정확히 파악 못 함
+               */
+              if (defined(nowViewingItem._previewInfo)) {
+                const {epsg, envelope} = nowViewingItem._previewInfo
+
+                const proj = new proj4.Proj("EPSG:4326")
+                const proj2 = new proj4.Proj(proj4definitions[epsg])
+
+                const min = proj4(proj2, proj, [envelope.minX, envelope.minY])
+                const max = proj4(proj2, proj, [envelope.maxX, envelope.maxY])
+                const center = Rectangle.center(Rectangle.fromDegrees(...min, ...max))
+                this.terriaPreview.currentViewer.zoomTo(zoomRectangleFromPoint(CesiumMath.toDegrees(center.latitude), CesiumMath.toDegrees(center.longitude), 0.05))
+
+              }
+
               that.removePreviewFromMap = nowViewingItem.showOnSeparateMap(
                 that.terriaPreview.currentViewer
               );
