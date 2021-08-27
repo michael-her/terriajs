@@ -96,6 +96,7 @@ const DataPreviewMap = createReactClass({
     // Object.assign(vworldStreet, koreanBaseMap['vworldStreet']);
     //
     // this.terriaPreview.baseMap = vworldStreet;
+    this.terriaPreview.baseMap = positron;
 
     this.isZoomedToExtent = false;
     this.lastPreviewedCatalogItem = undefined;
@@ -141,7 +142,7 @@ const DataPreviewMap = createReactClass({
     });
 
     this.isZoomedToExtent = false;
-    this.terriaPreview.currentViewer.zoomTo(this.terriaPreview.homeView);
+    // this.terriaPreview.currentViewer.zoomTo(this.terriaPreview.homeView);
 
     if (defined(this.removePreviewFromMap)) {
       this.removePreviewFromMap();
@@ -206,6 +207,8 @@ const DataPreviewMap = createReactClass({
                 const center = Rectangle.center(Rectangle.fromDegrees(...min, ...max))
                 this.terriaPreview.currentViewer.zoomTo(zoomRectangleFromPoint(CesiumMath.toDegrees(center.latitude), CesiumMath.toDegrees(center.longitude), 0.05))
 
+              } else {
+                this.terriaPreview.currentViewer.zoomTo(this.terriaPreview.homeView);
               }
 
               that.removePreviewFromMap = nowViewingItem.showOnSeparateMap(
