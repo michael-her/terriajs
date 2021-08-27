@@ -24,7 +24,7 @@
     "allowFeaturePicking": false
   },
   "naverSatellite": {
-    "url": "https://map.pstatic.net/nrb/styles/satellite/1626941278",
+    "url": "https://map.pstatic.net/nrb/styles/satellite/1629360209",
     "opacity": 1.0,
     "isRequiredForRendering": true,
     "name": "네이버 위성",
