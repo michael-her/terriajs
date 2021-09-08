@@ -1,5 +1,7 @@
 "use strict";
 
+import koreanBaseMap from "../../../wwwroot/MapConfig/koreanBaseMap/map.json";
+
 const CesiumMath = require("terriajs-cesium/Source/Core/Math").default;
 const ConsoleAnalytics = require("../../Core/ConsoleAnalytics");
 const defaultValue = require("terriajs-cesium/Source/Core/defaultValue")
@@ -197,15 +199,17 @@ const DataPreviewMap = createReactClass({
                  zoomRectangleFromPoint Method 의 boundingBoxSize 의 의미를 정확히 파악 못 함
                */
               if (defined(nowViewingItem._previewInfo)) {
-                const {epsg, envelope} = nowViewingItem._previewInfo
+                const {nativeSRS, envelope} = nowViewingItem._previewInfo
 
                 const proj = new proj4.Proj("EPSG:4326")
-                const proj2 = new proj4.Proj(proj4definitions[epsg])
+                const proj2 = new proj4.Proj(proj4definitions[nativeSRS])
 
                 const min = proj4(proj2, proj, [envelope.minX, envelope.minY])
                 const max = proj4(proj2, proj, [envelope.maxX, envelope.maxY])
                 const center = Rectangle.center(Rectangle.fromDegrees(...min, ...max))
-                this.terriaPreview.currentViewer.zoomTo(zoomRectangleFromPoint(CesiumMath.toDegrees(center.latitude), CesiumMath.toDegrees(center.longitude), 0.05))
+                // 경도 1도    = 60분 = 약 88.804Km
+                // 경도 0.016도  = 1분 = 약 1.480 Km
+                this.terriaPreview.currentViewer.zoomTo(zoomRectangleFromPoint(CesiumMath.toDegrees(center.latitude), CesiumMath.toDegrees(center.longitude), 0.025))
 
               } else {
                 this.terriaPreview.currentViewer.zoomTo(this.terriaPreview.homeView);
@@ -381,7 +385,8 @@ const DataPreviewMap = createReactClass({
 
   render() {
     return (
-      <div className={Styles.map} onClick={this.clickMap}>
+      // <div className={Styles.map} onClick={this.clickMap}>
+      <div className={Styles.map}>
         <Choose>
           <When condition={this.props.showMap}>
             <div
