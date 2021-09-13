@@ -209,10 +209,11 @@ const DataPreviewMap = createReactClass({
                 const center = Rectangle.center(Rectangle.fromDegrees(...min, ...max))
                 // 경도 1도    = 60분 = 약 88.804Km
                 // 경도 0.016도  = 1분 = 약 1.480 Km
-                this.terriaPreview.currentViewer.zoomTo(zoomRectangleFromPoint(CesiumMath.toDegrees(center.latitude), CesiumMath.toDegrees(center.longitude), 0.025))
+                this.terriaPreview.currentViewer.zoomTo(zoomRectangleFromPoint(CesiumMath.toDegrees(center.latitude), CesiumMath.toDegrees(center.longitude), 0.005))
 
               } else {
                 this.terriaPreview.currentViewer.zoomTo(this.terriaPreview.homeView);
+
               }
 
               that.removePreviewFromMap = nowViewingItem.showOnSeparateMap(
@@ -377,7 +378,7 @@ const DataPreviewMap = createReactClass({
       map.scrollWheelZoom.disable();
       map.boxZoom.disable();
       map.keyboard.disable();
-      map.dragging.disable();
+      // map.dragging.disable();
 
       this.updatePreview(previewedCatalogItem);
     }
@@ -386,7 +387,7 @@ const DataPreviewMap = createReactClass({
   render() {
     return (
       // <div className={Styles.map} onClick={this.clickMap}>
-      <div className={Styles.map}>
+       <div className={Styles.map}>
         <Choose>
           <When condition={this.props.showMap}>
             <div
