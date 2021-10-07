@@ -68,11 +68,10 @@ const RemovePanel = createReactClass({
     if(defined(catalogItem._remove)) {
       catalogItem._remove()
     }
-    this.props.viewState.viewCatalogMember(catalogItem.parent)
-    catalogItem.parent.items = catalogItem.parent.items.filter(c => catalogItem.nameInCatalog !== c.nameInCatalog)
-
-    // api call...
-    // console.log(catalogItem.parent, 'parent , group')
+    // 삭제할 때 항상 맵에 그려져 있는 레이어를 비활성화 하고 한다.
+    catalogItem.isEnabled = false;
+    this.props.viewState.viewCatalogMember(catalogItem.parent);
+    catalogItem.parent.remove(catalogItem);
   },
 
   renderWarning() {

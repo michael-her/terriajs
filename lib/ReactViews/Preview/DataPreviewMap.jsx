@@ -209,6 +209,7 @@ const DataPreviewMap = createReactClass({
                 const center = Rectangle.center(Rectangle.fromDegrees(...min, ...max))
                 // 경도 1도    = 60분 = 약 88.804Km
                 // 경도 0.016도  = 1분 = 약 1.480 Km
+                // 약 반경 1km 로 설정함..
                 this.terriaPreview.currentViewer.zoomTo(zoomRectangleFromPoint(CesiumMath.toDegrees(center.latitude), CesiumMath.toDegrees(center.longitude), 0.005))
 
               } else {
