@@ -90,6 +90,8 @@ const DataCatalogGroup = createReactClass({
   render() {
     const group = this.props.group;
     const { t } = this.props;
+    const isGroupClick = !this.props.terria.getUserProperty("disableNavigation")
+
     return (
       <CatalogGroup
         text={this.getNameOrPrettyUrl()}
@@ -100,7 +102,7 @@ const DataCatalogGroup = createReactClass({
         open={this.isOpen()}
         loading={group.isLoading}
         emptyMessage={t("dataCatalog.groupEmpty")}
-        onClick={this.clickGroup}
+        onClick={isGroupClick ? this.clickGroup : ()=>{}}
         removable={this.props.removable}
         removeUserAddedData={removeUserAddedData.bind(
           this,
