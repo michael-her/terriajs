@@ -1,5 +1,6 @@
 "use strict";
 
+const defined = require("terriajs-cesium/Source/Core/defined").default;
 import React from "react";
 import createReactClass from "create-react-class";
 import PropTypes from "prop-types";
@@ -24,16 +25,24 @@ export default createReactClass({
   },
 
   render() {
+    const disableGeoWaveCatalog = defined(this.props.terria) && !this.props.terria.getUserProperty("disableGeoWaveCatalog")
+
     if (this.props.member.isGroup) {
-      return (
-        <DataCatalogGroup
-          group={this.props.member}
-          viewState={this.props.viewState}
-          manageIsOpenLocally={this.props.manageIsOpenLocally}
-          removable={this.props.removable}
-          terria={this.props.terria}
-        />
-      );
+      if(disableGeoWaveCatalog || this.props.member.type !== 'geowave') {
+        return (
+          <DataCatalogGroup
+            group={this.props.member}
+            viewState={this.props.viewState}
+            manageIsOpenLocally={this.props.manageIsOpenLocally}
+            removable={this.props.removable}
+            terria={this.props.terria}
+          />
+        );
+      } else {
+        return (
+          <></>
+        );
+      }
     } else {
       return (
         <DataCatalogItem
