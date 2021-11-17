@@ -1,7 +1,5 @@
 "use strict";
 
-import koreanBaseMap from "../../../wwwroot/MapConfig/koreanBaseMap/map.json";
-
 const CesiumMath = require("terriajs-cesium/Source/Core/Math").default;
 const ConsoleAnalytics = require("../../Core/ConsoleAnalytics");
 const defaultValue = require("terriajs-cesium/Source/Core/defaultValue")
@@ -20,10 +18,11 @@ const when = require("terriajs-cesium/Source/ThirdParty/when").default;
 const proj4 = require("proj4").default;
 const proj4definitions = require("../../Map/Proj4Definitions");
 const zoomRectangleFromPoint = require("../../Map/zoomRectangleFromPoint");
+const rectangle = require("terriajs-cesium/Source/Core/Rectangle").default;
+// import {Rectangle} from "terriajs-cesium";
 
 import classNames from "classnames";
 import {withTranslation} from "react-i18next";
-import {Rectangle} from "terriajs-cesium";
 
 import Styles from "./data-preview-map.scss";
 
@@ -206,10 +205,10 @@ const DataPreviewMap = createReactClass({
 
                 const min = proj4(proj2, proj, [envelope.minX, envelope.minY])
                 const max = proj4(proj2, proj, [envelope.maxX, envelope.maxY])
-                const center = Rectangle.center(Rectangle.fromDegrees(...min, ...max))
-                // 경도 1도    = 60분 = 약 88.804Km
-                // 경도 0.016도  = 1분 = 약 1.480 Km
-                // 약 반경 1km 로 설정함..
+                const center = rectangle.center(rectangle.fromDegrees(...min, ...max))
+                // // 경도 1도    = 60분 = 약 88.804Km
+                // // 경도 0.016도  = 1분 = 약 1.480 Km
+                // // 약 반경 1km 로 설정함..
                 this.terriaPreview.currentViewer.zoomTo(zoomRectangleFromPoint(CesiumMath.toDegrees(center.latitude), CesiumMath.toDegrees(center.longitude), 0.005))
 
               } else {
@@ -376,7 +375,7 @@ const DataPreviewMap = createReactClass({
       const map = this.terriaViewer.terria.leaflet.map;
       map.touchZoom.disable();
       map.doubleClickZoom.disable();
-      map.scrollWheelZoom.disable();
+      // map.scrollWheelZoom.disable();
       map.boxZoom.disable();
       map.keyboard.disable();
       // map.dragging.disable();
@@ -387,8 +386,7 @@ const DataPreviewMap = createReactClass({
 
   render() {
     return (
-      // <div className={Styles.map} onClick={this.clickMap}>
-       <div className={Styles.map}>
+      <div className={Styles.map} onClick={this.clickMap}>
         <Choose>
           <When condition={this.props.showMap}>
             <div
