@@ -17,14 +17,14 @@
     "fileExtension": "jpeg"
   },
   "naverStreet": {
-    "url": "https://map.pstatic.net/nrb/styles/basic/1636011164",
+    "url": "https://map.pstatic.net/nrb/styles/basic/1641459092",
     "opacity": 1.0,
     "isRequiredForRendering": true,
     "name": "네이버 지도",
     "allowFeaturePicking": false
   },
   "naverSatellite": {
-    "url": "https://map.pstatic.net/nrb/styles/satellite/1636011164",
+    "url": "https://map.pstatic.net/nrb/styles/satellite/1641459092",
     "opacity": 1.0,
     "isRequiredForRendering": true,
     "name": "네이버 위성",
