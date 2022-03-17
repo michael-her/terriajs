@@ -102,9 +102,9 @@ export type LayerVisConfig = {
   resolution: VisConfigNumber;
   sizeScale: VisConfigNumber;
   angle: VisConfigNumber;
+  height: VisConfigNumber,
   worldUnitSize: VisConfigNumber;
-  elevationScale: VisConfigNumber;
-  elevationRange: VisConfigRange;
+  heightScale: VisConfigNumber;
   heightRange: VisConfigRange;
   coverageRange: VisConfigRange;
   'hi-precision': VisConfigBoolean;
