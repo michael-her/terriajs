@@ -95,7 +95,7 @@ function configureWebpack(terriaJSBasePath, config, devMode, hot, MiniCssExtract
                 'babel-plugin-transform-class-properties',
                 '@babel/plugin-proposal-optional-chaining',
                 '@babel/plugin-proposal-export-default-from',
-                '@babel/plugin-proposal-export-namespace-from',
+                '@babel/plugin-proposal-export-namespace-from'
             ]
         }
     });
